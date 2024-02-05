@@ -3,30 +3,53 @@ package com.user.model;
 import java.io.Serializable;
 import java.sql.Date;
 
-public class UserVo implements Serializable{
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.Table;
+
+@Entity
+@Table(name = "user")
+public class UserVO implements Serializable{
 	private static final long serialVersionUID = 1L;
+	@Id
+	@Column(name="u_id")
 	private Integer uId;
+	@Column(name="mood_id")
 	private Integer moodId;
+	@Column(name="u_nickname")
 	private String uNickname;
+	@Column(name="u_name")
 	private String uName;
+	@Column(name="u_mail")
 	private String uMail;
+	@Column(name="u_password")
 	private String uPassword;
+	@Column(name="u_phone")
 	private String uPhone;
+	@Column(name="u_verified")
 	private Integer uVerified;
+	@Column(name="u_coach")
 	private Integer uCoach;
+	@Column(name="u_gender")
 	private String uGender;
+	@Column(name="u_age")
 	private Integer uAge;
+	@Column(name="u_headshot",columnDefinition = "longblob")
 	private byte[] uHeadshot;
+	@Column(name="u_birth")
 	private Date uBirth;
+	@Column(name="u_status")
 	private Integer uStatus;
+	@Column(name="c_intro")
 	private String cIntro;
 
-	public UserVo() {
+	public UserVO() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
 
-	public UserVo(Integer uId, Integer moodId, String uNickname, String uName, String uMail, String uPassword,
+	public UserVO(Integer uId, Integer moodId, String uNickname, String uName, String uMail, String uPassword,
 			String uPhone, Integer uVerified, Integer uCoach, String uGender, Integer uAge, byte[] uHeadshot,
 			Date uBirth, Integer uStatus, String cIntro) {
 		super();
@@ -46,6 +69,7 @@ public class UserVo implements Serializable{
 		this.uStatus = uStatus;
 		this.cIntro = cIntro;
 	}
+
 
 	public Integer getuId() {
 		return uId;

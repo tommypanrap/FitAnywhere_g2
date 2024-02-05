@@ -23,6 +23,15 @@
 	<servlet-name>AdCarouselOrderServlet</servlet-name>
 	<url-pattern>/Adc/Adc.do</url-pattern>
 	</servlet-mapping>
+	
+	<servlet>
+    <servlet-name>UserServlet</servlet-name>
+    <servlet-class>com.user.controller.UserServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>UserServlet</servlet-name>
+    <url-pattern>/user/user.do</url-pattern>
+  </servlet-mapping>
  
  
 </web-app>

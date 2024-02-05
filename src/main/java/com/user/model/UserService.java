@@ -11,69 +11,72 @@ public class UserService {
 	public UserService() {
 		dao = new UserDAO();
 	}
+	
+	UserHibernate userHibernate = new UserHibernate();
 
-	public UserVo addUser(Integer uId, Integer moodId, String uNickname, String uName, String uMail, String uPassword,
+	public UserVO addUser(Integer uId, Integer moodId, String uNickname, String uName, String uMail, String uPassword,
 			String uPhone, Integer uVerified, Integer uCoach, String uGender, Integer uAge, byte[] uHeadshot,
 			Date uBirth, Integer uStatus, String cIntro) {
 
-		UserVo userVo = new UserVo();
+		UserVO userVO = new UserVO();
 
-		userVo.setuId(uId);
-		userVo.setmoodId(moodId);
-		userVo.setuNickname(uNickname);
-		userVo.setuName(uName);
-		userVo.setuMail(uMail);
-		userVo.setuPassword(uPassword);
-		userVo.setuPhone(uPhone);
-		userVo.setuVerified(uVerified);
-		userVo.setuCoach(uCoach);
-		userVo.setuGender(uGender);
-		userVo.setuAge(uAge);
-		userVo.setuHeadshot(uHeadshot);
-		userVo.setuBirth(uBirth);
-		userVo.setuStatus(uStatus);
-		userVo.setcIntro(cIntro);
+		userVO.setuId(uId);
+		userVO.setmoodId(moodId);
+		userVO.setuNickname(uNickname);
+		userVO.setuName(uName);
+		userVO.setuMail(uMail);
+		userVO.setuPassword(uPassword);
+		userVO.setuPhone(uPhone);
+		userVO.setuVerified(uVerified);
+		userVO.setuCoach(uCoach);
+		userVO.setuGender(uGender);
+		userVO.setuAge(uAge);
+		userVO.setuHeadshot(uHeadshot);
+		userVO.setuBirth(uBirth);
+		userVO.setuStatus(uStatus);
+		userVO.setcIntro(cIntro);
 
-		dao.insert(userVo);
-		return userVo;
+//		dao.insert(userVo);
+		userHibernate.insert(userVO);
+		return userVO;
 	}
 
-	public UserVo updateUser(Integer uId, Integer moodId, String uNickname, String uName, String uMail, String uPassword,
+	public UserVO updateUser(Integer uId, Integer moodId, String uNickname, String uName, String uMail, String uPassword,
 			String uPhone, Integer uVerified, Integer uCoach, String uGender, Integer uAge, byte[] uHeadshot,
 			Date uBirth, Integer uStatus, String cIntro) {
 
-		UserVo userVo = new UserVo();
+		UserVO userVO = new UserVO();
 
-		userVo.setuId(uId);
-		userVo.setmoodId(moodId);
-		userVo.setuNickname(uNickname);
-		userVo.setuName(uName);
-		userVo.setuMail(uMail);
-		userVo.setuPassword(uPassword);
-		userVo.setuPhone(uPhone);
-		userVo.setuVerified(uVerified);
-		userVo.setuCoach(uCoach);
-		userVo.setuGender(uGender);
-		userVo.setuAge(uAge);
-		userVo.setuHeadshot(uHeadshot);
-		userVo.setuBirth(uBirth);
-		userVo.setuStatus(uStatus);
-		userVo.setcIntro(cIntro);
+		userVO.setuId(uId);
+		userVO.setmoodId(moodId);
+		userVO.setuNickname(uNickname);
+		userVO.setuName(uName);
+		userVO.setuMail(uMail);
+		userVO.setuPassword(uPassword);
+		userVO.setuPhone(uPhone);
+		userVO.setuVerified(uVerified);
+		userVO.setuCoach(uCoach);
+		userVO.setuGender(uGender);
+		userVO.setuAge(uAge);
+		userVO.setuHeadshot(uHeadshot);
+		userVO.setuBirth(uBirth);
+		userVO.setuStatus(uStatus);
+		userVO.setcIntro(cIntro);
 
-		dao.update(userVo);
+		userHibernate.update(userVO);
 
-		return userVo;
+		return userVO;
 	}
 
-	public UserVo getOneUser(Integer uId) {
-		return dao.findByPrimaryKey(uId);
+	public UserVO getOneUser(Integer uId) {
+		return userHibernate.findByPrimaryKey(uId);
 	}
 
 	public void deleteUser(Integer uId) {
 		dao.delete(uId);
 	}
 
-	public List<UserVo> getAll() {
+	public List<UserVO> getAll() {
 		return dao.getAll();
 	}
 }

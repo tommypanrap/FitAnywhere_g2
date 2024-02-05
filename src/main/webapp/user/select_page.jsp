@@ -55,7 +55,7 @@
     <FORM METHOD="post" ACTION="user.do" >
         <b>輸入用戶ID (如101):</b>
         <input type="text" name="uId">
-        <input type="hidden" name="action" value="getOne_For_Display">
+        <input type="hidden" name="action" value="getOneForDisplay">
         <input type="submit" value="送出">                   <h4>(資料格式驗證  by Controller ).</h4> 
     </FORM>
   </li>
@@ -64,7 +64,7 @@
     <FORM METHOD="post" ACTION="user.do" name="form1">
         <b>輸入用戶ID (如101):</b>
         <input type="text" name="uId">
-        <input type="hidden" name="action" value="getOne_For_Display">
+        <input type="hidden" name="action" value="getOneForDisplay">
         <input type="submit" value="送出" onclick="fun1()">  <h4>(資料格式驗證  by Java Script).</h4> 
     </FORM>
   </li>
@@ -75,11 +75,11 @@
      <FORM METHOD="post" ACTION="user.do" >
        <b>選擇用戶ID:</b>
        <select size="1" name="uId">
-         <c:forEach var="UserVo" items="${dao.all}" > 
-          <option value="${UserVo.uId}">${UserVo.uId}
+         <c:forEach var="userVO" items="${dao.all}" > 
+          <option value="${userVO.uId}">${userVO.uId}
          </c:forEach>   
        </select>
-       <input type="hidden" name="action" value="getOne_For_Display">
+       <input type="hidden" name="action" value="getOneForDisplay">
        <input type="submit" value="送出">
     </FORM>
   </li>
@@ -88,11 +88,11 @@
      <FORM METHOD="post" ACTION="user.do" >
        <b>選擇用戶姓名:</b>
        <select size="1" name="uId">
-         <c:forEach var="UserVo" items="${dao.all}" > 
-          <option value="${UserVo.uId}">${UserVo.uName}
+         <c:forEach var="userVO" items="${dao.all}" > 
+          <option value="${userVO.uId}">${userVO.uName}
          </c:forEach>   
        </select>
-       <input type="hidden" name="action" value="getOne_For_Display">
+       <input type="hidden" name="action" value="getOneForDisplay">
        <input type="submit" value="送出">
      </FORM>
   </li>
