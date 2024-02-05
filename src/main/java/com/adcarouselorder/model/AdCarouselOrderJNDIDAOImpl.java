@@ -13,7 +13,7 @@ import javax.naming.InitialContext;
 import javax.naming.NamingException;
 import javax.sql.DataSource;
 
-public class AdCarouselOrderJNDIDAO implements AdCarouselOrderDAO_interface{
+public class AdCarouselOrderJNDIDAOImpl implements AdCarouselOrderDAO{
 	
 	private static DataSource ds = null;
 	static {
@@ -25,9 +25,8 @@ public class AdCarouselOrderJNDIDAO implements AdCarouselOrderDAO_interface{
 		}
 	}
 
-	private static final String INSERT_STMT = "INSERT INTO ad_carousel_order "
-	        + "(adc_id, ad_id, u_id, cr_id, adc_start_date, adc_end_date, adc_total_price, adc_update_pic, adc_status, adc_order_enddate) "
-	        + "VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+	private static final String INSERT_STMT = "INSERT INTO ad_carousel_order ( adc_start_date, adc_end_date, adc_total_price, adc_update_pic, adc_status, adc_order_enddate)"
+			+ "VALUES( '2023-06-15 00:00:00', '2023-06-15 00:00:00', 500, NULL, 1, '2024-04-02 11:45:00')";
 
 	private static final String GET_ALL_STMT = "SELECT adc_id, ad_id, u_id, cr_id, adc_start_date, adc_end_date, adc_total_price, adc_update_pic, adc_status, adc_order_enddate FROM ad_carousel_order";
 
@@ -47,24 +46,24 @@ public class AdCarouselOrderJNDIDAO implements AdCarouselOrderDAO_interface{
 			con = ds.getConnection();
 			pstmt = con.prepareStatement(INSERT_STMT);
 
-		 	pstmt.setNull(1, Types.INTEGER); 
-	        pstmt.setInt(2, adCarouselOrderVO.getAdId());
-	        pstmt.setInt(3, adCarouselOrderVO.getuId());
-	        pstmt.setInt(4, adCarouselOrderVO.getCrId());
-	        pstmt.setTimestamp(5, adCarouselOrderVO.getAdcStartDate());
-	        pstmt.setTimestamp(6, adCarouselOrderVO.getAdcEndDate());
-	        pstmt.setInt(7, adCarouselOrderVO.getAdcTotalPrice());
+//			pstmt.setInt(1, adCarouselOrderVO.getAdcId());
+//			pstmt.setInt(2, adCarouselOrderVO.getAdId());
+//			pstmt.setInt(3, adCarouselOrderVO.getuId());
+//			pstmt.setInt(4, adCarouselOrderVO.getCrId());
+			pstmt.setTimestamp(1, adCarouselOrderVO.getAdcStartDate());
+			pstmt.setTimestamp(2, adCarouselOrderVO.getAdcEndDate());
+			pstmt.setInt(3, adCarouselOrderVO.getAdcTotalPrice());
 
-	        if (adCarouselOrderVO.getAdcUpdatePic() != null) {
-	            pstmt.setBytes(8, adCarouselOrderVO.getAdcUpdatePic());
-	        } else {
-	            pstmt.setNull(8, Types.BLOB);
-	        }
+			if (adCarouselOrderVO.getAdcUpdatePic() != null) {
+				pstmt.setBytes(4, adCarouselOrderVO.getAdcUpdatePic());
+			} else {
+				pstmt.setNull(4, Types.BLOB);
+			}
 
-	        pstmt.setInt(9, adCarouselOrderVO.getAdcStatus());
-	        pstmt.setTimestamp(10, adCarouselOrderVO.getAdcOrderEnddate());
+			pstmt.setInt(5, adCarouselOrderVO.getAdcStatus());
+			pstmt.setTimestamp(6, adCarouselOrderVO.getAdcOrderEnddate());
 
-	        pstmt.executeUpdate();
+			pstmt.executeUpdate();
 
 		} catch (SQLException se) {
 			throw new RuntimeException("A database error occured. " + se.getMessage());
@@ -99,7 +98,7 @@ public class AdCarouselOrderJNDIDAO implements AdCarouselOrderDAO_interface{
 
 		 	pstmt.setNull(1, Types.INTEGER); 
 	        pstmt.setInt(2, adCarouselOrderVO.getAdId());
-	        pstmt.setInt(3, adCarouselOrderVO.getuId());
+	        pstmt.setInt(3, adCarouselOrderVO.getUId());
 	        pstmt.setInt(4, adCarouselOrderVO.getCrId());
 	        pstmt.setTimestamp(5, adCarouselOrderVO.getAdcStartDate());
 	        pstmt.setTimestamp(6, adCarouselOrderVO.getAdcEndDate());
@@ -190,7 +189,7 @@ public class AdCarouselOrderJNDIDAO implements AdCarouselOrderDAO_interface{
 				adCarouselOrderVO = new AdCarouselOrderVO();
 				adCarouselOrderVO.setAdcId(rs.getInt("adc_id"));
 				adCarouselOrderVO.setAdId(rs.getInt("ad_id"));
-				adCarouselOrderVO.setuId(rs.getInt("u_id"));
+				adCarouselOrderVO.setUId(rs.getInt("u_id"));
 				adCarouselOrderVO.setCrId(rs.getInt("cr_id"));
 				adCarouselOrderVO.setAdcStartDate(rs.getTimestamp("adc_start_date"));
 				adCarouselOrderVO.setAdcEndDate(rs.getTimestamp("adc_end_date"));
@@ -241,7 +240,7 @@ public class AdCarouselOrderJNDIDAO implements AdCarouselOrderDAO_interface{
 				adCarouselOrderVO = new AdCarouselOrderVO();
 				adCarouselOrderVO.setAdcId(rs.getInt("adc_id"));
 				adCarouselOrderVO.setAdId(rs.getInt("ad_id"));
-				adCarouselOrderVO.setuId(rs.getInt("u_id"));
+				adCarouselOrderVO.setUId(rs.getInt("u_id"));
 				adCarouselOrderVO.setCrId(rs.getInt("cr_id"));
 				adCarouselOrderVO.setAdcStartDate(rs.getTimestamp("adc_start_date"));
 				adCarouselOrderVO.setAdcEndDate(rs.getTimestamp("adc_end_date"));

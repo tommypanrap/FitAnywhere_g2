@@ -6,13 +6,13 @@ import java.util.List;
 
 public class AdCarouselOrderService {
 
-	private AdCarouselOrderDAO_interface dao;
+	private AdCarouselOrderDAO dao;
 
 	public AdCarouselOrderService() {
-		dao = new AdCarouselOrderDAO();
+		dao = new AdCarouselOrderDAOImpl();
 	}
 
-	public AdCarouselOrderVO addAdc(Integer adId, Integer uId, Integer crId,
+	public AdCarouselOrderVO addAdc(
 			java.sql.Timestamp adcStartDate, java.sql.Timestamp adcEndDate, Integer adcTotalPrice, byte[] adcUpdatePic,
 			Integer adcStatus, java.sql.Timestamp adcOrderEnddate) {
 
@@ -21,9 +21,9 @@ public class AdCarouselOrderService {
 		adCarouselOrderVO = new AdCarouselOrderVO();
 
 //		adCarouselOrderVO.setAdId(adcId);
-		adCarouselOrderVO.setAdId(adId);
-		adCarouselOrderVO.setuId(uId);
-		adCarouselOrderVO.setCrId(crId);
+//		adCarouselOrderVO.setAdId(adId);
+//		adCarouselOrderVO.setuId(uId);
+//		adCarouselOrderVO.setCrId(crId);
 		adCarouselOrderVO.setAdcStartDate(adcStartDate);
 		adCarouselOrderVO.setAdcEndDate(adcEndDate);
 		adCarouselOrderVO.setAdcTotalPrice(adcTotalPrice);
@@ -49,7 +49,7 @@ public class AdCarouselOrderService {
 
 		adCarouselOrderVO.setAdcId(adcId);
 		adCarouselOrderVO.setAdId(adId);
-		adCarouselOrderVO.setuId(uId);
+		adCarouselOrderVO.setUId(uId);
 		adCarouselOrderVO.setCrId(crId);
 		adCarouselOrderVO.setAdcStartDate(adcStartDate);
 		adCarouselOrderVO.setAdcEndDate(adcEndDate);
