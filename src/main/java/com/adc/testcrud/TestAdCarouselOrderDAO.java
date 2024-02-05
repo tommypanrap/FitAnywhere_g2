@@ -1,8 +1,8 @@
-package com.adcarouselorder.model;
+package com.adc.testcrud;
 
-import javax.naming.Context;
-import javax.naming.InitialContext;
-import javax.naming.NamingException;
+import com.adcarouselorder.model.AdCarouselOrderDAO;
+import com.adcarouselorder.model.AdCarouselOrderDAOImpl;
+import com.adcarouselorder.model.AdCarouselOrderVO;
 
 public class TestAdCarouselOrderDAO {
 	public static void main(String[] args) {
