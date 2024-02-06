@@ -191,5 +191,5 @@ public class UserVO implements Serializable{
 		this.cIntro = cIntro;
 	}
 
-
 }
+

@@ -104,7 +104,7 @@ public class AdCarouselOrderServlet extends HttpServlet {
 			AdCarouselOrderService adcSvc = new AdCarouselOrderService();
 			AdCarouselOrderVO adcVO = adcSvc.getOneAdc(adcId);
 
-			String param = "?adcId=" + adcVO.getAdcId() + "&adId=" + adcVO.getAdId() + "&uId=" + adcVO.getuId()
+			String param = "?adcId=" + adcVO.getAdcId() + "&adId=" + adcVO.getAdId() + "&uId=" + adcVO.getUId()
 					+ "&crId=" + adcVO.getCrId() + "&adcStartDate=" + adcVO.getAdcStartDate() + "&adcEndDate="
 					+ adcVO.getAdcEndDate() + "&adcTotalPrice=" + adcVO.getAdcTotalPrice() + "&adcUpdatePic="
 					+ adcVO.getAdcUpdatePic() + "&adcStatus=" + adcVO.getAdcStatus() + "&adcOrderEnddate="
@@ -184,7 +184,7 @@ public class AdCarouselOrderServlet extends HttpServlet {
 			AdCarouselOrderVO adcVO = new AdCarouselOrderVO();
 			adcVO.setAdcId(adcId);
 			adcVO.setAdId(adId);
-			adcVO.setuId(uId);
+			adcVO.setUId(uId);
 			adcVO.setCrId(crId);
 			adcVO.setAdcStartDate(adcStartDate);
 			adcVO.setAdcEndDate(adcEndDate);
@@ -258,10 +258,10 @@ public class AdCarouselOrderServlet extends HttpServlet {
 			
 
 			AdCarouselOrderVO adcVO = new AdCarouselOrderVO();
-			adcVO.setAdcId(adcId);
-			adcVO.setAdId(adId);
-			adcVO.setuId(uId);
-			adcVO.setCrId(crId);
+//			adcVO.setAdcId(adcId);
+//			adcVO.setAdId(adId);
+//			adcVO.setuId(uId);
+//			adcVO.setCrId(crId);
 			adcVO.setAdcStartDate(adcStartDate);
 			adcVO.setAdcEndDate(adcEndDate);
 			adcVO.setAdcTotalPrice(adcTotalPrice);
@@ -277,7 +277,7 @@ public class AdCarouselOrderServlet extends HttpServlet {
 			}
 
 			AdCarouselOrderService adcSvc = new AdCarouselOrderService();
-			adcVO = adcSvc.addAdc(adId, uId, crId, adcStartDate, adcEndDate, adcTotalPrice, adcUpdatePic, adcStatus,
+			adcVO = adcSvc.addAdc( adcStartDate, adcEndDate, adcTotalPrice, adcUpdatePic, adcStatus,
 					adcOrderEnddate);
 			
 			String url = "/Adc/listAllAdc.jsp";

@@ -169,7 +169,7 @@ th, td {
 			</tr>
 
 
-			<%-- <jsp:useBean id="userVo" scope="page" class="com.user.model.UserVo" />
+			<%-- <jsp:useBean id="userVo" scope="page" class="com.user.model.UserVO" />
 			<tr>
 				<td>部門:<font color=red><b>*</b></font></td>
 				<td><select size="1" name="deptno">

@@ -20,6 +20,7 @@ public class UserService {
 
 		UserVO userVO = new UserVO();
 
+
 		userVO.setuId(uId);
 		userVO.setmoodId(moodId);
 		userVO.setuNickname(uNickname);

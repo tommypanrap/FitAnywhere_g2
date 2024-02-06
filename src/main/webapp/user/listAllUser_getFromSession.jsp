@@ -5,11 +5,15 @@
 <%-- 此頁練習採用 EL 的寫法取值 --%>
 
 <%
-// 取得EmpServlet.java(Concroller)，第31行存入session的list物件
     List<UserVO> list = (List<UserVO>)session.getAttribute("list"); // list變數(物件)將提供page1.file的第11行取得查詢到的總筆數，再由page1.file進行分頁的需要
 %>
+<<<<<<< HEAD
    <%-- 以下等同第9行--%>
    <%-- <jsp:useBean id="list" scope="session" type="java.util.List<UserVo>" /> --%>
+=======
+   <%-- �H�U���P��9��--%>
+   <%-- <jsp:useBean id="list" scope="session" type="java.util.List<UserVO>" /> --%>
+>>>>>>> refs/heads/master
 
 <html>
 <head>
