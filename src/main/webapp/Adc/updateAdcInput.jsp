@@ -2,7 +2,7 @@
 <%@ page language="java" contentType="text/html; charset=BIG5"
 	pageEncoding="BIG5"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<%@ page import="com.adcarouselorder.model.*"%>
+<%@ page import="com.fitanywhere.adcarouselorder.model.*"%>
 
 <%
 // AdCarouselOrderVO adcVO = (AdCarouselOrderVO) request.getAttribute("adcVO");

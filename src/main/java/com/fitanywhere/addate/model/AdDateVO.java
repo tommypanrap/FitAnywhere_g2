@@ -1,4 +1,4 @@
-package com.addate.model;
+package com.fitanywhere.addate.model;
 
 import java.sql.Date;
 
@@ -11,11 +11,11 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
-import com.ad.model.AdVO;
+import com.fitanywhere.ad.model.AdVO;
 
 @Entity
 @Table(name="ad_date")
-public class AddateVO {
+public class AdDateVO {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "ad_date_id")
@@ -24,18 +24,18 @@ public class AddateVO {
 	@Column(name = "ad_date_interval")
 	private Date adDateInterval;
 	
-	@Column(name = "ad_ud")
+	@Column(name = "ad_id")
 	private Integer adId;
 	
-	@ManyToOne
-	@JoinColumn(name="")
-	private AdVO ads;
+//	@ManyToOne
+//	@JoinColumn(name="")
+//	private AdVO ads;
 
-	public AddateVO() {
+	public AdDateVO() {
 		super();
 	}
 
-	public AddateVO(Integer adDateId, Date adDateInterval, Integer adId) {
+	public AdDateVO(Integer adDateId, Date adDateInterval, Integer adId) {
 		super();
 		this.adDateId = adDateId;
 		this.adDateInterval = adDateInterval;

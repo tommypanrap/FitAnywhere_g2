@@ -1,7 +1,6 @@
-package com.adcarouselorder.model;
+package com.fitanywhere.adcarouselorder.model;
 
 import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -9,16 +8,23 @@ import java.sql.Types;
 import java.util.ArrayList;
 import java.util.List;
 
-public class AdCarouselOrderJDBCDAOImpl implements AdCarouselOrderDAO {
-	String driver = "com.mysql.cj.jdbc.Driver";
-	String url = "jdbc:mysql://localhost:3306/fitanywhere?serverTimezone=Asia/Taipei";
-	String userid = "root";
-	String passwd = "123456";
+import javax.naming.Context;
+import javax.naming.InitialContext;
+import javax.naming.NamingException;
+import javax.sql.DataSource;
 
-//	private static final String INSERT_STMT = "INSERT INTO ad_carousel_order "
-//	        + "(adc_id, ad_id, u_id, cr_id, adc_start_date, adc_end_date, adc_total_price, adc_update_pic, adc_status, adc_order_enddate) "
-//	        + "VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+public class AdCarouselOrderJNDIDAOImpl implements AdCarouselOrderDAO{
 	
+	private static DataSource ds = null;
+	static {
+		try {
+			Context ctx = new InitialContext();
+			ds = (DataSource) ctx.lookup("java:com/env/jdbc/fitanywhere");
+		} catch(NamingException e){
+			e.printStackTrace();
+		}
+	}
+
 	private static final String INSERT_STMT = "INSERT INTO ad_carousel_order ( adc_start_date, adc_end_date, adc_total_price, adc_update_pic, adc_status, adc_order_enddate)"
 			+ "VALUES( '2023-06-15 00:00:00', '2023-06-15 00:00:00', 500, NULL, 1, '2024-04-02 11:45:00')";
 
@@ -37,9 +43,7 @@ public class AdCarouselOrderJDBCDAOImpl implements AdCarouselOrderDAO {
 		PreparedStatement pstmt = null;
 
 		try {
-
-			Class.forName(driver);
-			con = DriverManager.getConnection(url, userid, passwd);
+			con = ds.getConnection();
 			pstmt = con.prepareStatement(INSERT_STMT);
 
 //			pstmt.setInt(1, adCarouselOrderVO.getAdcId());
@@ -59,10 +63,8 @@ public class AdCarouselOrderJDBCDAOImpl implements AdCarouselOrderDAO {
 			pstmt.setInt(5, adCarouselOrderVO.getAdcStatus());
 			pstmt.setTimestamp(6, adCarouselOrderVO.getAdcOrderEnddate());
 
-	        pstmt.executeUpdate();
-	        
-		} catch (ClassNotFoundException e) {
-			throw new RuntimeException("Couldn't load database driver." + e.getMessage());
+			pstmt.executeUpdate();
+
 		} catch (SQLException se) {
 			throw new RuntimeException("A database error occured. " + se.getMessage());
 		} finally {
@@ -81,6 +83,7 @@ public class AdCarouselOrderJDBCDAOImpl implements AdCarouselOrderDAO {
 				}
 			}
 		}
+
 	}
 
 	@Override
@@ -90,12 +93,10 @@ public class AdCarouselOrderJDBCDAOImpl implements AdCarouselOrderDAO {
 		PreparedStatement pstmt = null;
 
 		try {
-
-			Class.forName(driver);
-			con = DriverManager.getConnection(url, userid, passwd);
+			con = ds.getConnection();
 			pstmt = con.prepareStatement(UPDATE);
 
-		 	pstmt.setNull(1, adCarouselOrderVO.getAdcId()); 
+		 	pstmt.setNull(1, Types.INTEGER); 
 	        pstmt.setInt(2, adCarouselOrderVO.getAdId());
 	        pstmt.setInt(3, adCarouselOrderVO.getUId());
 	        pstmt.setInt(4, adCarouselOrderVO.getCrId());
@@ -113,11 +114,9 @@ public class AdCarouselOrderJDBCDAOImpl implements AdCarouselOrderDAO {
 	        pstmt.setTimestamp(10, adCarouselOrderVO.getAdcOrderEnddate());
 
 	        pstmt.executeUpdate();
-	        
-		} catch (ClassNotFoundException e) {
-			throw new RuntimeException("Couldn't load database driver." + e.getMessage());
+
 		} catch (SQLException se) {
-			throw new RuntimeException("A database error occured. " + se.getMessage());
+			throw new RuntimeException("A database error occured." + se.getMessage());
 		} finally {
 			if (pstmt != null) {
 				try {
@@ -143,19 +142,15 @@ public class AdCarouselOrderJDBCDAOImpl implements AdCarouselOrderDAO {
 		PreparedStatement pstmt = null;
 
 		try {
-
-			Class.forName(driver);
-			con = DriverManager.getConnection(url, userid, passwd);
+			con = ds.getConnection();
 			pstmt = con.prepareStatement(DELETE);
 
 			pstmt.setInt(1, adcId);
 
 			pstmt.executeUpdate();
 
-		} catch (ClassNotFoundException e) {
-			throw new RuntimeException("Couldn't load database driver." + e.getMessage());
 		} catch (SQLException se) {
-			throw new RuntimeException("A database error occured. " + se.getMessage());
+			throw new RuntimeException("A database error occured." + se.getMessage());
 		} finally {
 			if (pstmt != null) {
 				try {
@@ -183,8 +178,7 @@ public class AdCarouselOrderJDBCDAOImpl implements AdCarouselOrderDAO {
 		ResultSet rs = null;
 
 		try {
-			Class.forName(driver);
-			con = DriverManager.getConnection(url, userid, passwd);
+			con = ds.getConnection();
 			pstmt = con.prepareStatement(GET_ONE_STMT);
 
 			pstmt.setInt(1, adcId);
@@ -206,10 +200,8 @@ public class AdCarouselOrderJDBCDAOImpl implements AdCarouselOrderDAO {
 
 			}
 
-		} catch (ClassNotFoundException e) {
-			throw new RuntimeException("Couldn't load database driver." + e.getMessage());
 		} catch (SQLException se) {
-			throw new RuntimeException("A database error occured. " + se.getMessage());
+			throw new RuntimeException("A database error occured." + se.getMessage());
 		} finally {
 			if (pstmt != null) {
 				try {
@@ -240,8 +232,7 @@ public class AdCarouselOrderJDBCDAOImpl implements AdCarouselOrderDAO {
 		ResultSet rs = null;
 
 		try {
-			Class.forName(driver);
-			con = DriverManager.getConnection(url, userid, passwd);
+			con = ds.getConnection();
 			pstmt = con.prepareStatement(GET_ALL_STMT);
 			rs = pstmt.executeQuery();
 
@@ -259,11 +250,9 @@ public class AdCarouselOrderJDBCDAOImpl implements AdCarouselOrderDAO {
 				adCarouselOrderVO.setAdcOrderEnddate(rs.getTimestamp("adc_order_enddate"));
 				list.add(adCarouselOrderVO);
 			}
-
-		} catch (ClassNotFoundException e) {
-			throw new RuntimeException("Couldn't load database driver." + e.getMessage());
+			
 		} catch (SQLException se) {
-			throw new RuntimeException("A database error occured. " + se.getMessage());
+			throw new RuntimeException("A database error occured." + se.getMessage());
 		} finally {
 			if (pstmt != null) {
 				try {

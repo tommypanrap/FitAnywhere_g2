@@ -1,4 +1,4 @@
-package com.adcarouselorder.model;
+package com.fitanywhere.adcarouselorder.model;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -13,14 +13,14 @@ import javax.naming.InitialContext;
 import javax.naming.NamingException;
 import javax.sql.DataSource;
 
-public class AdCarouselOrderJNDIDAOImpl implements AdCarouselOrderDAO{
-	
+public class AdCarouselOrderDAOImpl implements AdCarouselOrderDAO {
+
 	private static DataSource ds = null;
 	static {
 		try {
 			Context ctx = new InitialContext();
-			ds = (DataSource) ctx.lookup("java:com/env/jdbc/fitanywhere");
-		} catch(NamingException e){
+			ds = (DataSource) ctx.lookup("java:comp/env/jdbc/fitanywhere");
+		} catch (NamingException e) {
 			e.printStackTrace();
 		}
 	}
@@ -96,24 +96,24 @@ public class AdCarouselOrderJNDIDAOImpl implements AdCarouselOrderDAO{
 			con = ds.getConnection();
 			pstmt = con.prepareStatement(UPDATE);
 
-		 	pstmt.setNull(1, Types.INTEGER); 
-	        pstmt.setInt(2, adCarouselOrderVO.getAdId());
-	        pstmt.setInt(3, adCarouselOrderVO.getUId());
-	        pstmt.setInt(4, adCarouselOrderVO.getCrId());
-	        pstmt.setTimestamp(5, adCarouselOrderVO.getAdcStartDate());
-	        pstmt.setTimestamp(6, adCarouselOrderVO.getAdcEndDate());
-	        pstmt.setInt(7, adCarouselOrderVO.getAdcTotalPrice());
+			pstmt.setInt(1, adCarouselOrderVO.getAdId());
+			pstmt.setInt(2, adCarouselOrderVO.getUId());
+			pstmt.setInt(3, adCarouselOrderVO.getCrId());
+			pstmt.setTimestamp(4, adCarouselOrderVO.getAdcStartDate());
+			pstmt.setTimestamp(5, adCarouselOrderVO.getAdcEndDate());
+			pstmt.setInt(6, adCarouselOrderVO.getAdcTotalPrice());
 
-	        if (adCarouselOrderVO.getAdcUpdatePic() != null) {
-	            pstmt.setBytes(8, adCarouselOrderVO.getAdcUpdatePic());
-	        } else {
-	            pstmt.setNull(8, Types.BLOB);
-	        }
+			
+			if (adCarouselOrderVO.getAdcUpdatePic() != null) {
+				pstmt.setBytes(7, adCarouselOrderVO.getAdcUpdatePic());
+			} else {
+				pstmt.setNull(7, Types.BLOB);
+			}
 
-	        pstmt.setInt(9, adCarouselOrderVO.getAdcStatus());
-	        pstmt.setTimestamp(10, adCarouselOrderVO.getAdcOrderEnddate());
-
-	        pstmt.executeUpdate();
+			pstmt.setInt(8, adCarouselOrderVO.getAdcStatus());
+			pstmt.setTimestamp(9, adCarouselOrderVO.getAdcOrderEnddate());
+			pstmt.setInt(10, adCarouselOrderVO.getAdcId());
+			pstmt.executeUpdate();
 
 		} catch (SQLException se) {
 			throw new RuntimeException("A database error occured." + se.getMessage());
@@ -250,7 +250,7 @@ public class AdCarouselOrderJNDIDAOImpl implements AdCarouselOrderDAO{
 				adCarouselOrderVO.setAdcOrderEnddate(rs.getTimestamp("adc_order_enddate"));
 				list.add(adCarouselOrderVO);
 			}
-			
+
 		} catch (SQLException se) {
 			throw new RuntimeException("A database error occured." + se.getMessage());
 		} finally {
