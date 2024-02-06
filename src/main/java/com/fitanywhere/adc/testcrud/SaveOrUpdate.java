@@ -3,7 +3,7 @@ package com.fitanywhere.adc.testcrud;
 import org.hibernate.Session;
 
 import com.fitanywhere.adcarouselorder.model.AdCarouselOrderVO;
-import com.util.HibernateUtil;
+import com.fitanywhere.util.HibernateUtil;
 
 public class SaveOrUpdate {
 	public static void main(String[] args) {

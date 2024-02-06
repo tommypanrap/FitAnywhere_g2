@@ -1,10 +1,9 @@
 package com.fitanywhere.adc.testcrud;
 
-import org.hibernate.Hibernate;
 import org.hibernate.Session;
 
 import com.fitanywhere.adcarouselorder.model.AdCarouselOrderVO;
-import com.util.HibernateUtil;
+import com.fitanywhere.util.HibernateUtil;
 
 public class Load {
 	public static void main(String[] args) {

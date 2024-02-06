@@ -1,4 +1,5 @@
-package com.user.model;
+package com.fitanywhere.user.model;
+
 
 import java.util.List;
 

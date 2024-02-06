@@ -19,75 +19,78 @@ import com.fitanywhere.adrecommandorder.model.AdRecommandOrderVO;
 @Entity
 @Table(name = "course")
 public class CourseVO {
-	
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "cr_id")
 	private Integer crId;
-	
+
 	@Column(name = "u_id")
 	private Integer uId;
-	
+
 	@Column(name = "cr_class")
 	private String crClass;
-	
-	@Column(name = "cr_state")
-	private Integer crState;
-	
+
+	@Column(name = "cr_status")
+	private Integer crStatus;
+
 	@Column(name = "cr_subtitle")
 	private String crSubtitle;
-	
+
 	@Transient
 	@Column(name = "cr_intro", columnDefinition = "longtext")
 	private String crIntro;
-	
+
 	@Column(name = "cr_cover", columnDefinition = "longblob")
 	private byte[] crCover;
-	
+
 	@Column(name = "cr_price")
 	private Integer crPrice;
-	
+
 	@Column(name = "cr_create_date")
 	private Timestamp crCreateDate;
-	
+
 	@Column(name = "cr_edit_date")
 	private Timestamp crEditDate;
-	
+
 	@Column(name = "cr_cm_quan")
 	private Integer crCmQuan;
-	
+
 	@Column(name = "cr_tot_star")
 	private Integer crTotStar;
-	
+
 	@Column(name = "cr_purpose_1")
 	private String crPurpose1;
-	
+
 	@Column(name = "cr_purpose_2")
 	private String crPurpose2;
-	
+
 	@Column(name = "cr_purpose_3")
 	private String crPurpose3;
-	
+
 	@Column(name = "cr_pre")
 	private String crPre;
-	
+
 	@Column(name = "cr_target_1")
 	private String crTarget1;
-	
-	@Column(name = "cr_hello_msg")
+
+	@Column(name = "cr_hello_msg", columnDefinition = "longtext")
 	private String crHelloMsg;
-	
-	@Column(name = "cr_cong")
+
+	@Column(name = "cr_cong", columnDefinition = "longtext")
 	private String crCong;
-	
+
 	@Column(name = "cr_level")
 	private String crLevel;
+
+	@OneToMany(mappedBy = "course", cascade = CascadeType.ALL)
+	private Set<AdRecommandOrderVO> adr;
 
 	public CourseVO() {
 		super();
 	}
 
-	public CourseVO(Integer crId, Integer uId, String crClass, Integer crState, String crSubtitle, String crIntro,
+	public CourseVO(Integer crId, Integer uId, String crClass, Integer crStatus, String crSubtitle, String crIntro,
 			byte[] crCover, Integer crPrice, Timestamp crCreateDate, Timestamp crEditDate, Integer crCmQuan,
 			Integer crTotStar, String crPurpose1, String crPurpose2, String crPurpose3, String crPre, String crTarget1,
 			String crHelloMsg, String crCong, String crLevel) {
@@ -95,7 +98,7 @@ public class CourseVO {
 		this.crId = crId;
 		this.uId = uId;
 		this.crClass = crClass;
-		this.crState = crState;
+		this.crStatus = crStatus;
 		this.crSubtitle = crSubtitle;
 		this.crIntro = crIntro;
 		this.crCover = crCover;
@@ -116,12 +119,12 @@ public class CourseVO {
 
 	@Override
 	public String toString() {
-		return "CourseVO [crId=" + crId + ", uId=" + uId + ", crClass=" + crClass + ", crState=" + crState
+		return "CourseVO [crId=" + crId + ", uId=" + uId + ", crClass=" + crClass + ", crStatus=" + crStatus
 				+ ", crSubtitle=" + crSubtitle + ", crIntro=" + crIntro + ", crCover=" + Arrays.toString(crCover)
 				+ ", crPrice=" + crPrice + ", crCreateDate=" + crCreateDate + ", crEditDate=" + crEditDate
 				+ ", crCmQuan=" + crCmQuan + ", crTotStar=" + crTotStar + ", crPurpose1=" + crPurpose1 + ", crPurpose2="
 				+ crPurpose2 + ", crPurpose3=" + crPurpose3 + ", crPre=" + crPre + ", crTarget1=" + crTarget1
-				+ ", crHelloMsg=" + crHelloMsg + ", crCong=" + crCong + ", crLevel=" + crLevel + "]";
+				+ ", crHelloMsg=" + crHelloMsg + ", crCong=" + crCong + ", crLevel=" + crLevel + ", adr=" + adr + "]";
 	}
 
 	public Integer getCrId() {
@@ -148,12 +151,12 @@ public class CourseVO {
 		this.crClass = crClass;
 	}
 
-	public Integer getCrState() {
-		return crState;
+	public Integer getCrStatus() {
+		return crStatus;
 	}
 
-	public void setCrState(Integer crState) {
-		this.crState = crState;
+	public void setCrStatus(Integer crStatus) {
+		this.crStatus = crStatus;
 	}
 
 	public String getCrSubtitle() {
@@ -284,9 +287,13 @@ public class CourseVO {
 		this.crLevel = crLevel;
 	}
 
-	
-//	@OneToMany(mappedBy = "course", cascade = CascadeType.ALL)
-//	private Set<AdRecommandOrderVO> adr;
+	public Set<AdRecommandOrderVO> getAdr() {
+		return adr;
+	}
+
+	public void setAdr(Set<AdRecommandOrderVO> adr) {
+		this.adr = adr;
+	}
 	
 
 }

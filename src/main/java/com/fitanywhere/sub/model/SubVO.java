@@ -1,4 +1,4 @@
-package com.sub.model;
+package com.fitanywhere.sub.model;
 import java.sql.Date;
 
 public class SubVO implements java.io.Serializable{

@@ -1,4 +1,4 @@
-package com.util;
+package com.fitanywhere.util;
 
 import org.hibernate.SessionFactory;
 import org.hibernate.boot.MetadataSources;

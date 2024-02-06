@@ -1,12 +1,18 @@
-package com.sub.controller;
+package com.fitanywhere.sub.controller;
 
-import java.io.*;
-import java.util.*;
+import java.io.IOException;
+import java.util.LinkedList;
+import java.util.List;
 
-import javax.servlet.*;
-import javax.servlet.http.*;
+import javax.servlet.RequestDispatcher;
+import javax.servlet.ServletException;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
-import com.sub.model.*;
+import com.fitanywhere.sub.model.SubService;
+import com.fitanywhere.sub.model.SubVO;
+
 
 public class SubServlet extends HttpServlet {
 

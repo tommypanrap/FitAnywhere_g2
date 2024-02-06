@@ -1,4 +1,4 @@
-package com.sub.model;
+package com.fitanywhere.sub.model;
 
 import java.util.*;
 

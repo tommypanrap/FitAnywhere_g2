@@ -1,8 +1,8 @@
-package com.sub.model;
+package com.fitanywhere.sub.model;
+
 
 import java.util.List;
 import java.util.Set;
-import com.sub.model.SubVO;
 
 public class SubService {
 

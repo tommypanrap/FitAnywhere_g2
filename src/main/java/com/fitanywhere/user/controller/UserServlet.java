@@ -1,4 +1,5 @@
-package com.user.controller;
+package com.fitanywhere.user.controller;
+
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
@@ -18,10 +19,9 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import javax.servlet.http.Part;
 
-import com.user.model.UserHibernate;
-import com.user.model.UserDAO;
-import com.user.model.UserService;
-import com.user.model.UserVO;
+import com.fitanywhere.user.model.UserDAO;
+import com.fitanywhere.user.model.UserService;
+import com.fitanywhere.user.model.UserVO;
 
 /**
  * Servlet implementation class UserServlet

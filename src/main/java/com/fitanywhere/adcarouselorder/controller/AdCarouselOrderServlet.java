@@ -104,7 +104,7 @@ public class AdCarouselOrderServlet extends HttpServlet {
 			AdCarouselOrderService adcSvc = new AdCarouselOrderService();
 			AdCarouselOrderVO adcVO = adcSvc.getOneAdc(adcId);
 
-			String param = "?adcId=" + adcVO.getAdcId() + "&adId=" + adcVO.getAdId() + "&uId=" + adcVO.getUId()
+			String param = "?adcId=" + adcVO.getAdcId() + "&adId=" + adcVO.getadId() + "&uId=" + adcVO.getuId()
 					+ "&crId=" + adcVO.getCrId() + "&adcStartDate=" + adcVO.getAdcStartDate() + "&adcEndDate="
 					+ adcVO.getAdcEndDate() + "&adcTotalPrice=" + adcVO.getAdcTotalPrice() + "&adcUpdatePic="
 					+ adcVO.getAdcUpdatePic() + "&adcStatus=" + adcVO.getAdcStatus() + "&adcOrderEnddate="

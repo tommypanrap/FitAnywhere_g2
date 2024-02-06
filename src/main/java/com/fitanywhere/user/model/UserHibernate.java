@@ -1,13 +1,12 @@
-package com.user.model;
+package com.fitanywhere.user.model;
+
 
 import java.util.List;
 
-import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
-import org.hibernate.Transaction;
 
-import com.util.HibernateUtil;
+import com.fitanywhere.util.HibernateUtil;
 
 public class UserHibernate implements UserDAO_interface {
 
