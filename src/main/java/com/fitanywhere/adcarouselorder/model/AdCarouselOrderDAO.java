@@ -1,4 +1,4 @@
-package com.adcarouselorder.model;
+package com.fitanywhere.adcarouselorder.model;
 
 import java.util.List;
 

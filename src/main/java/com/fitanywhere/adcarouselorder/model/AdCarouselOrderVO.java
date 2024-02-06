@@ -1,4 +1,4 @@
-package com.adcarouselorder.model;
+package com.fitanywhere.adcarouselorder.model;
 
 import java.sql.Timestamp;
 import java.util.Arrays;
@@ -8,7 +8,13 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+
+import com.fitanywhere.ad.model.AdVO;
+import com.fitanywhere.course.model.CourseVO;
+import com.fitanywhere.user.model.UserVO;
 
 @Entity
 @Table(name = "ad_carousel_order")
@@ -18,14 +24,14 @@ public class AdCarouselOrderVO {
 	@Column(name = "adc_id")
 	private Integer adcId;
 	
-	@Column(name = "ad_id", updatable = false)
-	private Integer adId;
-	
-	@Column(name = "u_id", updatable = false)
-	private Integer uId;
-	
-	@Column(name = "cr_id", updatable = false)
-	private Integer crId;
+//	@Column(name = "ad_id", updatable = false)
+//	private Integer adId;
+//	
+//	@Column(name = "u_id", updatable = false)
+//	private Integer uId;
+//	
+//	@Column(name = "cr_id", updatable = false)
+//	private Integer crId;
 	
 	@Column(name = "adc_start_date")
 	private Timestamp adcStartDate;
@@ -44,33 +50,36 @@ public class AdCarouselOrderVO {
 	
 	@Column(name = "adc_order_enddate")
 	private Timestamp adcOrderEnddate;
+	
+	@ManyToOne
+	@JoinColumn(name = "ad_id", referencedColumnName = "ad_id")
+	private AdVO ad;
+	
+	@ManyToOne
+	@JoinColumn(name = "u_id", referencedColumnName = "u_id")
+	private UserVO user;
+	
+	@ManyToOne
+	@JoinColumn(name = "cr_id", referencedColumnName = "cr_id")
+	private CourseVO course;
 
 	public AdCarouselOrderVO() {
 		super();
 	}
 
-	public AdCarouselOrderVO(Integer adcId, Integer adId, Integer uId, Integer crId, Timestamp adcStartDate,
-			Timestamp adcEndDate, Integer adcTotalPrice, byte[] adcUpdatePic, Integer adcStatus,
-			Timestamp adcOrderEnddate) {
+	public AdCarouselOrderVO(Integer adcId, Timestamp adcStartDate, Timestamp adcEndDate, Integer adcTotalPrice,
+			byte[] adcUpdatePic, Integer adcStatus, Timestamp adcOrderEnddate, AdVO ad, UserVO user, CourseVO course) {
 		super();
 		this.adcId = adcId;
-		this.adId = adId;
-		this.uId = uId;
-		this.crId = crId;
 		this.adcStartDate = adcStartDate;
 		this.adcEndDate = adcEndDate;
 		this.adcTotalPrice = adcTotalPrice;
 		this.adcUpdatePic = adcUpdatePic;
 		this.adcStatus = adcStatus;
 		this.adcOrderEnddate = adcOrderEnddate;
-	}
-
-	@Override
-	public String toString() {
-		return "AdCarouselOrderVO [adcId=" + adcId + ", adId=" + adId + ", uId=" + uId + ", crId=" + crId
-				+ ", adcStartDate=" + adcStartDate + ", adcEndDate=" + adcEndDate + ", adcTotalPrice=" + adcTotalPrice
-				+ ", adcUpdatePic=" + Arrays.toString(adcUpdatePic) + ", adcStatus=" + adcStatus + ", adcOrderEnddate="
-				+ adcOrderEnddate + "]";
+		this.ad = ad;
+		this.user = user;
+		this.course = course;
 	}
 
 	public Integer getAdcId() {
@@ -79,30 +88,6 @@ public class AdCarouselOrderVO {
 
 	public void setAdcId(Integer adcId) {
 		this.adcId = adcId;
-	}
-
-	public Integer getAdId() {
-		return adId;
-	}
-
-	public void setAdId(Integer adId) {
-		this.adId = adId;
-	}
-
-	public Integer getUId() {
-		return uId;
-	}
-
-	public void setUId(Integer uId) {
-		this.uId = uId;
-	}
-
-	public Integer getCrId() {
-		return crId;
-	}
-
-	public void setCrId(Integer crId) {
-		this.crId = crId;
 	}
 
 	public Timestamp getAdcStartDate() {
@@ -152,6 +137,40 @@ public class AdCarouselOrderVO {
 	public void setAdcOrderEnddate(Timestamp adcOrderEnddate) {
 		this.adcOrderEnddate = adcOrderEnddate;
 	}
+
+	public AdVO getAd() {
+		return ad;
+	}
+
+	public void setAd(AdVO ad) {
+		this.ad = ad;
+	}
+
+	public UserVO getUser() {
+		return user;
+	}
+
+	public void setUser(UserVO user) {
+		this.user = user;
+	}
+
+	public CourseVO getCourse() {
+		return course;
+	}
+
+	public void setCourse(CourseVO course) {
+		this.course = course;
+	}
+
+	@Override
+	public String toString() {
+		return "AdCarouselOrderVO [adcId=" + adcId + ", adcStartDate=" + adcStartDate + ", adcEndDate=" + adcEndDate
+				+ ", adcTotalPrice=" + adcTotalPrice + ", adcUpdatePic=" + Arrays.toString(adcUpdatePic)
+				+ ", adcStatus=" + adcStatus + ", adcOrderEnddate=" + adcOrderEnddate + ", ad=" + ad + ", user=" + user
+				+ ", course=" + course + "]";
+	}
+	
+	
 	
 	
 

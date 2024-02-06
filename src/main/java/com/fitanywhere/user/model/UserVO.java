@@ -1,4 +1,4 @@
-package com.user.model;
+package com.fitanywhere.user.model;
 
 import java.sql.Date;
 import java.util.Arrays;
@@ -13,7 +13,7 @@ import javax.persistence.OrderBy;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 
-import com.adrecommandorder.model.AdRecommandOrderVO;
+import com.fitanywhere.adrecommandorder.model.AdRecommandOrderVO;
 
 @Entity
 @Table(name = "user")
@@ -38,7 +38,7 @@ public class UserVO {
 	 @Column(name = "u_coach")
 	 private Integer uCoach;
 	 @Column(name = "u_gender")
-	 private String uGender;
+	 private Integer uGender;
 	 @Column(name = "u_age")
 	 private Integer uAge;
 	 @Column(name = "u_headshot", columnDefinition = "longblob")
@@ -52,16 +52,16 @@ public class UserVO {
 	 @Column(name = "c_intro")
 	 private String cIntro;
 	 
-	 @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
-	 @OrderBy("adr_id asc")
-	 private Set<AdRecommandOrderVO> adrs;
+//	 @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
+//	 @OrderBy("adr_id asc")
+//	 private Set<AdRecommandOrderVO> adrs;
 
 	public UserVO() {
 		super();
 	}
 
 	public UserVO(Integer uId, Integer moodId, String uNickname, String uName, String uMail, String uPassword,
-			String uPhone, Integer uVerified, Integer uCoach, String uGender, Integer uAge, byte[] uHeadshot,
+			String uPhone, Integer uVerified, Integer uCoach, Integer uGender, Integer uAge, byte[] uHeadshot,
 			Date uBirth, Integer uStatus, String cIntro) {
 		super();
 		this.uId = uId;
@@ -90,11 +90,11 @@ public class UserVO {
 				+ "]";
 	}
 
-	public Integer getUId() {
+	public Integer getuId() {
 		return uId;
 	}
 
-	public void setUId(Integer uId) {
+	public void setuId(Integer uId) {
 		this.uId = uId;
 	}
 
@@ -106,108 +106,108 @@ public class UserVO {
 		this.moodId = moodId;
 	}
 
-	public String getUNickname() {
+	public String getuNickname() {
 		return uNickname;
 	}
 
-	public void setUNickname(String uNickname) {
+	public void setuNickname(String uNickname) {
 		this.uNickname = uNickname;
 	}
 
-	public String getUName() {
+	public String getuName() {
 		return uName;
 	}
 
-	public void setUName(String uName) {
+	public void setuName(String uName) {
 		this.uName = uName;
 	}
 
-	public String getUMail() {
+	public String getuMail() {
 		return uMail;
 	}
 
-	public void setUMail(String uMail) {
+	public void setuMail(String uMail) {
 		this.uMail = uMail;
 	}
 
-	public String getUPassword() {
+	public String getuPassword() {
 		return uPassword;
 	}
 
-	public void setUPassword(String uPassword) {
+	public void setuPassword(String uPassword) {
 		this.uPassword = uPassword;
 	}
 
-	public String getUPhone() {
+	public String getuPhone() {
 		return uPhone;
 	}
 
-	public void setUPhone(String uPhone) {
+	public void setuPhone(String uPhone) {
 		this.uPhone = uPhone;
 	}
 
-	public Integer getUVerified() {
+	public Integer getuVerified() {
 		return uVerified;
 	}
 
-	public void setUVerified(Integer uVerified) {
+	public void setuVerified(Integer uVerified) {
 		this.uVerified = uVerified;
 	}
 
-	public Integer getUCoach() {
+	public Integer getuCoach() {
 		return uCoach;
 	}
 
-	public void setUCoach(Integer uCoach) {
+	public void setuCoach(Integer uCoach) {
 		this.uCoach = uCoach;
 	}
 
-	public String getUGender() {
+	public Integer getuGender() {
 		return uGender;
 	}
 
-	public void setUGender(String uGender) {
+	public void setuGender(Integer uGender) {
 		this.uGender = uGender;
 	}
 
-	public Integer getUAge() {
+	public Integer getuAge() {
 		return uAge;
 	}
 
-	public void setUAge(Integer uAge) {
+	public void setuAge(Integer uAge) {
 		this.uAge = uAge;
 	}
 
-	public byte[] getUHeadshot() {
+	public byte[] getuHeadshot() {
 		return uHeadshot;
 	}
 
-	public void setUHeadshot(byte[] uHeadshot) {
+	public void setuHeadshot(byte[] uHeadshot) {
 		this.uHeadshot = uHeadshot;
 	}
 
-	public Date getUBirth() {
+	public Date getuBirth() {
 		return uBirth;
 	}
 
-	public void setUBirth(Date uBirth) {
+	public void setuBirth(Date uBirth) {
 		this.uBirth = uBirth;
 	}
 
-	public Integer getUStatus() {
+	public Integer getuStatus() {
 		return uStatus;
 	}
 
-	public void setUStatus(Integer uStatus) {
+	public void setuStatus(Integer uStatus) {
 		this.uStatus = uStatus;
 	}
 
-	public String getCIntro() {
+	public String getcIntro() {
 		return cIntro;
 	}
 
-	public void setCIntro(String cIntro) {
+	public void setcIntro(String cIntro) {
 		this.cIntro = cIntro;
 	}
-	
+
 }

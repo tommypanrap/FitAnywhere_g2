@@ -58,7 +58,7 @@ h4 {
 			</form></li>
 
 		<jsp:useBean id="adcSvc" scope="page"
-			class="com.adcarouselorder.model.AdCarouselOrderService" />
+			class="com.fitanywhere.adcarouselorder.model.AdCarouselOrderService" />
 
 
 		<li>

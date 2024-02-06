@@ -1,4 +1,4 @@
-package com.ad.model;
+package com.fitanywhere.ad.model;
 
 import java.sql.Timestamp;
 import java.util.Set;
@@ -12,7 +12,7 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
-import com.adrecommandorder.model.AdRecommandOrderVO;
+import com.fitanywhere.adrecommandorder.model.AdRecommandOrderVO;
 
 @Entity
 @Table(name = "ad")
@@ -31,8 +31,8 @@ public class AdVO {
 	@Column(name = "ad_day_price")
 	private Integer adDayPrice;
 
-	@OneToMany(mappedBy = "adVO", cascade = CascadeType.ALL)
-	private Set<AdRecommandOrderVO> adrs;
+//	@OneToMany(mappedBy = "adVO", cascade = CascadeType.ALL)
+//	private Set<AdRecommandOrderVO> adrs;
 	
 	
 	public AdVO() {

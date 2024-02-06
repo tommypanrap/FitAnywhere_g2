@@ -18,7 +18,13 @@
 		
 		<property name="hibernate.current_session_context_class">thread</property>
 		
-		<mapping class=""/>
+		<mapping class="com.adcarouselorder.model.AdCarouselOrderVO"/>
+		<mapping class="com.addate.model.AdDateVO"/>
+		<mapping class="com.adrecommandorder.model.AdRecommandOrderVO"/>
+		<mapping class="com.course.model.CourseVO"/>
+		<mapping class="com.user.model.UserVO"/>
+		<mapping class="com.ad.model.AdVO"/>
+		
 		
     </session-factory>
     

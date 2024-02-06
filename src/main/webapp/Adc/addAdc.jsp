@@ -2,7 +2,7 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
-<%@ page import="com.adcarouselorder.model.*"%>
+<%@ page import="com.fitanywhere.adcarouselorder.model.*"%>
 
 
 <html>

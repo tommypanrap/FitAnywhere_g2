@@ -1,4 +1,4 @@
-package com.course.model;
+package com.fitanywhere.course.model;
 
 import java.sql.Timestamp;
 import java.util.Arrays;
@@ -14,7 +14,7 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 
-import com.adrecommandorder.model.AdRecommandOrderVO;
+import com.fitanywhere.adrecommandorder.model.AdRecommandOrderVO;
 
 @Entity
 @Table(name = "course")
@@ -31,8 +31,8 @@ public class CourseVO {
 	@Column(name = "cr_class")
 	private String crClass;
 	
-	@Column(name = "cr_status")
-	private Integer crStatus;
+	@Column(name = "cr_state")
+	private Integer crState;
 	
 	@Column(name = "cr_subtitle")
 	private String crSubtitle;
@@ -80,18 +80,14 @@ public class CourseVO {
 	@Column(name = "cr_cong")
 	private String crCong;
 	
-	@Column(name = "cr_lavel")
+	@Column(name = "cr_level")
 	private String crLevel;
-	
-	@OneToMany(mappedBy = "course", cascade = CascadeType.ALL)
-	private Set<AdRecommandOrderVO> adr;
-	
-	
+
 	public CourseVO() {
 		super();
 	}
 
-	public CourseVO(Integer crId, Integer uId, String crClass, Integer crStatus, String crSubtitle, String crIntro,
+	public CourseVO(Integer crId, Integer uId, String crClass, Integer crState, String crSubtitle, String crIntro,
 			byte[] crCover, Integer crPrice, Timestamp crCreateDate, Timestamp crEditDate, Integer crCmQuan,
 			Integer crTotStar, String crPurpose1, String crPurpose2, String crPurpose3, String crPre, String crTarget1,
 			String crHelloMsg, String crCong, String crLevel) {
@@ -99,7 +95,7 @@ public class CourseVO {
 		this.crId = crId;
 		this.uId = uId;
 		this.crClass = crClass;
-		this.crStatus = crStatus;
+		this.crState = crState;
 		this.crSubtitle = crSubtitle;
 		this.crIntro = crIntro;
 		this.crCover = crCover;
@@ -120,7 +116,7 @@ public class CourseVO {
 
 	@Override
 	public String toString() {
-		return "CourseVO [crId=" + crId + ", uId=" + uId + ", crClass=" + crClass + ", crStatus=" + crStatus
+		return "CourseVO [crId=" + crId + ", uId=" + uId + ", crClass=" + crClass + ", crState=" + crState
 				+ ", crSubtitle=" + crSubtitle + ", crIntro=" + crIntro + ", crCover=" + Arrays.toString(crCover)
 				+ ", crPrice=" + crPrice + ", crCreateDate=" + crCreateDate + ", crEditDate=" + crEditDate
 				+ ", crCmQuan=" + crCmQuan + ", crTotStar=" + crTotStar + ", crPurpose1=" + crPurpose1 + ", crPurpose2="
@@ -136,11 +132,11 @@ public class CourseVO {
 		this.crId = crId;
 	}
 
-	public Integer getUId() {
+	public Integer getuId() {
 		return uId;
 	}
 
-	public void setUId(Integer uId) {
+	public void setuId(Integer uId) {
 		this.uId = uId;
 	}
 
@@ -152,12 +148,12 @@ public class CourseVO {
 		this.crClass = crClass;
 	}
 
-	public Integer getCrStatus() {
-		return crStatus;
+	public Integer getCrState() {
+		return crState;
 	}
 
-	public void setCrStatus(Integer crStatus) {
-		this.crStatus = crStatus;
+	public void setCrState(Integer crState) {
+		this.crState = crState;
 	}
 
 	public String getCrSubtitle() {
@@ -287,5 +283,10 @@ public class CourseVO {
 	public void setCrLevel(String crLevel) {
 		this.crLevel = crLevel;
 	}
+
+	
+//	@OneToMany(mappedBy = "course", cascade = CascadeType.ALL)
+//	private Set<AdRecommandOrderVO> adr;
+	
 
 }

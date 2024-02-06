@@ -1,8 +1,8 @@
-package com.adc.testcrud;
+package com.fitanywhere.adc.testcrud;
 
-import com.adcarouselorder.model.AdCarouselOrderDAO;
-import com.adcarouselorder.model.AdCarouselOrderDAOImpl;
-import com.adcarouselorder.model.AdCarouselOrderVO;
+import com.fitanywhere.adcarouselorder.model.AdCarouselOrderDAO;
+import com.fitanywhere.adcarouselorder.model.AdCarouselOrderDAOImpl;
+import com.fitanywhere.adcarouselorder.model.AdCarouselOrderVO;
 
 public class TestAdCarouselOrderDAO {
 	public static void main(String[] args) {
