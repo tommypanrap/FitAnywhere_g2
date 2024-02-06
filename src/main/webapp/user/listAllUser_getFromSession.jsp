@@ -1,19 +1,23 @@
-<%@ page contentType="text/html; charset=UTF-8" pageEncoding="Big5"%>
+<%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ page import="java.util.*"%>
 <%@ page import="com.user.model.*"%>
-<%-- ¦¹­¶½m²ß±Ä¥Î EL ªº¼gªk¨ú­È --%>
+<%-- æ­¤é ç·´ç¿’æ¡ç”¨ EL çš„å¯«æ³•å–å€¼ --%>
 
 <%
-   // ¨ú±oEmpServlet.java(Concroller)¡A²Ä31¦æ¦s¤Jsessionªºlistª«¥ó
-    List<UserVO> list = (List<UserVO>)session.getAttribute("list"); // listÅÜ¼Æ(ª«¥ó)±N´£¨Ñpage1.fileªº²Ä11¦æ¨ú±o¬d¸ß¨ìªºÁ`µ§¼Æ¡A¦A¥Ñpage1.file¶i¦æ¤À­¶ªº»İ­n
+    List<UserVO> list = (List<UserVO>)session.getAttribute("list"); // listè®Šæ•¸(ç‰©ä»¶)å°‡æä¾›page1.fileçš„ç¬¬11è¡Œå–å¾—æŸ¥è©¢åˆ°çš„ç¸½ç­†æ•¸ï¼Œå†ç”±page1.fileé€²è¡Œåˆ†é çš„éœ€è¦
 %>
-   <%-- ¥H¤Uµ¥¦P²Ä9¦æ--%>
+<<<<<<< HEAD
+   <%-- ä»¥ä¸‹ç­‰åŒç¬¬9è¡Œ--%>
+   <%-- <jsp:useBean id="list" scope="session" type="java.util.List<UserVo>" /> --%>
+=======
+   <%-- ï¿½Hï¿½Uï¿½ï¿½ï¿½Pï¿½ï¿½9ï¿½ï¿½--%>
    <%-- <jsp:useBean id="list" scope="session" type="java.util.List<UserVO>" /> --%>
+>>>>>>> refs/heads/master
 
 <html>
 <head>
-<title>¥Î¤á¸ê®Æ - listAllUser_getFromSession.jsp</title>
+<title>ç”¨æˆ¶è³‡æ–™ - listAllUser_getFromSession.jsp</title>
 
 <style>
   table#table-1 {
@@ -51,31 +55,31 @@
 </head>
 <body bgcolor='white'>
 
-<h4>¦¹­¶½m²ß±Ä¥Î EL ªº¼gªk¨ú­È:</h4>
+<h4>æ­¤é ç·´ç¿’æ¡ç”¨ EL çš„å¯«æ³•å–å€¼:</h4>
 <table id="table-1">
 	<tr><td>
-		 <h3>©Ò¦³­û¤u¸ê®Æ - listAllEmp2_getFromSession.jsp</h3>
-		 <h4><a href="select_page.jsp"><img src="images/back1.gif" width="100" height="32" border="0">¦^­º­¶</a></h4>
+		 <h3>æ‰€æœ‰å“¡å·¥è³‡æ–™ - listAllEmp2_getFromSession.jsp</h3>
+		 <h4><a href="select_page.jsp"><img src="images/back1.gif" width="100" height="32" border="0">å›é¦–é </a></h4>
 	</td></tr>
 </table>
 
 <table>
 	<tr>
-		<th>¥Î¤áID</th>
-		<th>¤ß±¡ª¬ºA</th>
-		<th>¼ÊºÙ</th>
-		<th>©m¦W</th>
+		<th>ç”¨æˆ¶ID</th>
+		<th>å¿ƒæƒ…ç‹€æ…‹</th>
+		<th>æš±ç¨±</th>
+		<th>å§“å</th>
 		<th>Email</th>
-		<th>¥Î¤á±K½X</th>
-		<th>³sµ¸¹q¸Ü</th>
-		<th>¬O§_¤wÅçÃÒ±b¸¹</th>
-		<th>¬O§_¶}³q±Ğ½m¸ê®æ</th>
-		<th>©Ê§O</th>
-		<th>¦~ÄÖ</th>
-		<th>¥Î¤á¤jÀY·Ó</th>
-		<th>¥Í¤é</th>
-		<th>·|­ûª¬ºA</th>
-		<th>±Ğ½m¦Û¤¶</th>
+		<th>ç”¨æˆ¶å¯†ç¢¼</th>
+		<th>é€£çµ¡é›»è©±</th>
+		<th>æ˜¯å¦å·²é©—è­‰å¸³è™Ÿ</th>
+		<th>æ˜¯å¦é–‹é€šæ•™ç·´è³‡æ ¼</th>
+		<th>æ€§åˆ¥</th>
+		<th>å¹´é½¡</th>
+		<th>ç”¨æˆ¶å¤§é ­ç…§</th>
+		<th>ç”Ÿæ—¥</th>
+		<th>æœƒå“¡ç‹€æ…‹</th>
+		<th>æ•™ç·´è‡ªä»‹</th>
 	</tr>
 	<%-- <%@ include file="page1.file" %>  --%>
 	<c:forEach var="userVO" items="${list}">

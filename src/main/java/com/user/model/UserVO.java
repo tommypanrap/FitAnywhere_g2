@@ -1,63 +1,52 @@
 package com.user.model;
 
+import java.io.Serializable;
 import java.sql.Date;
-import java.util.Arrays;
-import java.util.Set;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
-import javax.persistence.OneToMany;
-import javax.persistence.OrderBy;
 import javax.persistence.Table;
-import javax.persistence.Transient;
-
-import com.adrecommandorder.model.AdRecommandOrderVO;
 
 @Entity
 @Table(name = "user")
-public class UserVO {
-	 @Id
-	 @Column(name = "u_id")
-	 private Integer uId;
-	 @Column(name = "mood_id")
-	 private Integer moodId;
-	 @Column(name = "u_nickname")
-	 private String uNickname;
-	 @Column(name = "u_name")
-	 private String uName;
-	 @Column(name = "u_mail")
-	 private String uMail;
-	 @Column(name = "u_password")
-	 private String uPassword;
-	 @Column(name = "u_phone")
-	 private String uPhone;
-	 @Column(name = "u_verified")
-	 private Integer uVerified;
-	 @Column(name = "u_coach")
-	 private Integer uCoach;
-	 @Column(name = "u_gender")
-	 private String uGender;
-	 @Column(name = "u_age")
-	 private Integer uAge;
-	 @Column(name = "u_headshot", columnDefinition = "longblob")
-	 private byte[] uHeadshot;
-	 @Column(name = "u_birth")
-	 private Date uBirth;
-	 @Column(name = "u_status")
-	 private Integer uStatus;
-
-	 @Transient
-	 @Column(name = "c_intro")
-	 private String cIntro;
-	 
-	 @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
-	 @OrderBy("adr_id asc")
-	 private Set<AdRecommandOrderVO> adrs;
+public class UserVO implements Serializable{
+	private static final long serialVersionUID = 1L;
+	@Id
+	@Column(name="u_id")
+	private Integer uId;
+	@Column(name="mood_id")
+	private Integer moodId;
+	@Column(name="u_nickname")
+	private String uNickname;
+	@Column(name="u_name")
+	private String uName;
+	@Column(name="u_mail")
+	private String uMail;
+	@Column(name="u_password")
+	private String uPassword;
+	@Column(name="u_phone")
+	private String uPhone;
+	@Column(name="u_verified")
+	private Integer uVerified;
+	@Column(name="u_coach")
+	private Integer uCoach;
+	@Column(name="u_gender")
+	private String uGender;
+	@Column(name="u_age")
+	private Integer uAge;
+	@Column(name="u_headshot",columnDefinition = "longblob")
+	private byte[] uHeadshot;
+	@Column(name="u_birth")
+	private Date uBirth;
+	@Column(name="u_status")
+	private Integer uStatus;
+	@Column(name="c_intro")
+	private String cIntro;
 
 	public UserVO() {
 		super();
+		// TODO Auto-generated constructor stub
 	}
 
 	public UserVO(Integer uId, Integer moodId, String uNickname, String uName, String uMail, String uPassword,
@@ -81,133 +70,126 @@ public class UserVO {
 		this.cIntro = cIntro;
 	}
 
-	@Override
-	public String toString() {
-		return "UserVO [uId=" + uId + ", moodId=" + moodId + ", uNickname=" + uNickname + ", uName=" + uName
-				+ ", uMail=" + uMail + ", uPassword=" + uPassword + ", uPhone=" + uPhone + ", uVerified=" + uVerified
-				+ ", uCoach=" + uCoach + ", uGender=" + uGender + ", uAge=" + uAge + ", uHeadshot="
-				+ Arrays.toString(uHeadshot) + ", uBirth=" + uBirth + ", uStatus=" + uStatus + ", cIntro=" + cIntro
-				+ "]";
-	}
 
-	public Integer getUId() {
+	public Integer getuId() {
 		return uId;
 	}
 
-	public void setUId(Integer uId) {
+	public void setuId(Integer uId) {
 		this.uId = uId;
 	}
 
-	public Integer getMoodId() {
+	public Integer getmoodId() {
 		return moodId;
 	}
 
-	public void setMoodId(Integer moodId) {
+	public void setmoodId(Integer moodId) {
 		this.moodId = moodId;
 	}
 
-	public String getUNickname() {
+	public String getuNickname() {
 		return uNickname;
 	}
 
-	public void setUNickname(String uNickname) {
+	public void setuNickname(String uNickname) {
 		this.uNickname = uNickname;
 	}
 
-	public String getUName() {
+	public String getuName() {
 		return uName;
 	}
 
-	public void setUName(String uName) {
+	public void setuName(String uName) {
 		this.uName = uName;
 	}
 
-	public String getUMail() {
+	public String getuMail() {
 		return uMail;
 	}
 
-	public void setUMail(String uMail) {
+	public void setuMail(String uMail) {
 		this.uMail = uMail;
 	}
 
-	public String getUPassword() {
+	public String getuPassword() {
 		return uPassword;
 	}
 
-	public void setUPassword(String uPassword) {
+	public void setuPassword(String uPassword) {
 		this.uPassword = uPassword;
 	}
 
-	public String getUPhone() {
+	public String getuPhone() {
 		return uPhone;
 	}
 
-	public void setUPhone(String uPhone) {
+	public void setuPhone(String uPhone) {
 		this.uPhone = uPhone;
 	}
 
-	public Integer getUVerified() {
+	public Integer getuVerified() {
 		return uVerified;
 	}
 
-	public void setUVerified(Integer uVerified) {
+	public void setuVerified(Integer uVerified) {
 		this.uVerified = uVerified;
 	}
 
-	public Integer getUCoach() {
+	public Integer getuCoach() {
 		return uCoach;
 	}
 
-	public void setUCoach(Integer uCoach) {
+	public void setuCoach(Integer uCoach) {
 		this.uCoach = uCoach;
 	}
 
-	public String getUGender() {
+	public String getuGender() {
 		return uGender;
 	}
 
-	public void setUGender(String uGender) {
+	public void setuGender(String uGender) {
 		this.uGender = uGender;
 	}
 
-	public Integer getUAge() {
+	public Integer getuAge() {
 		return uAge;
 	}
 
-	public void setUAge(Integer uAge) {
+	public void setuAge(Integer uAge) {
 		this.uAge = uAge;
 	}
 
-	public byte[] getUHeadshot() {
+	public byte[] getuHeadshot() {
 		return uHeadshot;
 	}
 
-	public void setUHeadshot(byte[] uHeadshot) {
+	public void setuHeadshot(byte[] uHeadshot) {
 		this.uHeadshot = uHeadshot;
 	}
 
-	public Date getUBirth() {
+	public Date getuBirth() {
 		return uBirth;
 	}
 
-	public void setUBirth(Date uBirth) {
+	public void setuBirth(Date uBirth) {
 		this.uBirth = uBirth;
 	}
 
-	public Integer getUStatus() {
+	public Integer getuStatus() {
 		return uStatus;
 	}
 
-	public void setUStatus(Integer uStatus) {
+	public void setuStatus(Integer uStatus) {
 		this.uStatus = uStatus;
 	}
 
-	public String getCIntro() {
+	public String getcIntro() {
 		return cIntro;
 	}
 
-	public void setCIntro(String cIntro) {
+	public void setcIntro(String cIntro) {
 		this.cIntro = cIntro;
 	}
-	
+
 }
+

@@ -5,9 +5,10 @@
 <%-- 此頁暫練習採用 Script 的寫法取值 --%>
 
 <%
-UserVO userVo = (UserVO) request.getAttribute("userVo"); //EmpServlet.java(Concroller), 存入req的empVO物件
-%>
 
+UserVO userVO = (UserVO) request.getAttribute("userVO"); //EmpServlet.java(Concroller), 存入req的empVO物件
+
+%>
 
 <html>
 <head>
@@ -85,23 +86,26 @@ th, td {
 			<th>教練自介</th>
 		</tr>
 		<tr>
-			<td><%=userVo.getuId()%></td>
-			<td><%=userVo.getmoodId()%></td>
-			<td><%=userVo.getuNickname()%></td>
-			<td><%=userVo.getuName()%></td>
-			<td><%=userVo.getuMail()%></td>
-			<td><%=userVo.getuPassword()%></td>
-			<td><%=userVo.getuPhone()%></td>
-			<td><%=userVo.getuVerified()%></td>
-			<td><%=userVo.getuCoach()%></td>
-			<td><%=userVo.getuGender()%></td>
-			<td><%=userVo.getuAge()%></td>
+			<td><%=userVO.getuId()%></td>
+			<td><%=userVO.getmoodId()%></td>
+			<td><%=userVO.getuNickname()%></td>
+			<td><%=userVO.getuName()%></td>
+			<td><%=userVO.getuMail()%></td>
+			<td><%=userVO.getuPassword()%></td>
+			<td><%=userVO.getuPhone()%></td>
+			<td><%=userVO.getuVerified()%></td>
+			<td><%=userVO.getuCoach()%></td>
+			<td><%=userVO.getuGender()%></td>
+			<td><%=userVO.getuAge()%></td>
+			<%-- <td><%=userVo.getuHeadshot()%></td> --%>
+			<%String base64Image = Base64.getEncoder().encodeToString(userVO.getuHeadshot());
+			request.setAttribute("base64Image",base64Image); %>
 			<td><img
-					src="data:image/jpeg;base64,${Base64.getEncoder().encodeToString(userVo.uHeadshot)}"
+					src="data:image/jpeg;base64,${base64Image}"
 					alt="Ad Image" width="100" height="100"></td>
-			<td><%=userVo.getuBirth()%></td>
-			<td><%=userVo.getuStatus()%></td>
-			<td><%=userVo.getcIntro()%></td>
+			<td><%=userVO.getuBirth()%></td>
+			<td><%=userVO.getuStatus()%></td>
+			<td><%=userVO.getcIntro()%></td>
 		</tr>
 	</table>
 

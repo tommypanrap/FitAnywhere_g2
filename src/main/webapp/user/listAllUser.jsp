@@ -7,6 +7,7 @@
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 
 <%
+
 UserService uSvc = new UserService();
 List<UserVO> list = uSvc.getAll();
 pageContext.setAttribute("list", list);
@@ -99,12 +100,9 @@ th, td {
 				<td>${userVO.uCoach}</td>
 				<td>${userVO.uGender}</td>
 				<td>${userVO.uAge}</td>
-
-				<%-- <td>${userVO.uHeadshot}</td> --%>
 				<td><img
 					src="data:image/jpeg;base64,${Base64.getEncoder().encodeToString(userVO.uHeadshot)}"
 					alt="Ad Image" width="100" height="100"></td>
-
 				<td>${userVO.uBirth}</td>
 				<td>${userVO.uStatus}</td>
 				<td>${userVO.cIntro}</td>
@@ -113,7 +111,7 @@ th, td {
 						enctype="multipart/form-data">
 						<input type="submit" value="修改"> <input type="hidden"
 							name="uId" value="${userVO.uId}"> <input type="hidden"
-							name="action" value="getOne_For_Update">
+							name="action" value="getOneForUpdate">
 					</FORM>
 				</td>
 				<td>

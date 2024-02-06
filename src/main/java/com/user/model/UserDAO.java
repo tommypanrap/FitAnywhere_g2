@@ -11,36 +11,36 @@ import java.util.List;
 public class UserDAO implements UserDAO_interface {
 	String driver = "com.mysql.cj.jdbc.Driver";
 	String url = "jdbc:mysql://localhost:3307/fitanywhere?serverTimezone=Asia/Taipei";
-	String userid = "root";
+	String userId = "root";
 	String password = "123456";
 
 	@Override
-	public void insert(UserVO userVo) {
+	public void insert(UserVO userVO) {
 		// TODO Auto-generated method stub
 		Connection con = null;
 		PreparedStatement pstmt = null;
 
 		try {
 			Class.forName(driver);
-			con = DriverManager.getConnection(url, userid, password);
+			con = DriverManager.getConnection(url, userId, password);
 			pstmt = con.prepareStatement(
-					"insert into user(u_id,mood_id,u_nickname,u_name,u_mail,u_password,u_phone,u_verified,u_coach,u_gender,u_age,u_headshot,u_birth,u_status,u_intro)values(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)");
+					"insert into user(u_id,mood_id,u_nickname,u_name,u_mail,u_password,u_phone,u_verified,u_coach,u_gender,u_age,u_headshot,u_birth,u_status,c_intro)values(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)");
 
-			pstmt.setInt(1, userVo.getuId());
-			pstmt.setInt(2, userVo.getmoodId());
-			pstmt.setString(3, userVo.getuNickname());
-			pstmt.setString(4, userVo.getuName());
-			pstmt.setString(5, userVo.getuMail());
-			pstmt.setString(6, userVo.getuPassword());
-			pstmt.setString(7, userVo.getuPhone());
-			pstmt.setInt(8, userVo.getuVerified());
-			pstmt.setInt(9, userVo.getuCoach());
-			pstmt.setString(10, userVo.getuGender());
-			pstmt.setInt(11, userVo.getuAge());
-			pstmt.setBytes(12, userVo.getuHeadshot());
-			pstmt.setDate(13, userVo.getuBirth());
-			pstmt.setInt(14, userVo.getuStatus());
-			pstmt.setString(15, userVo.getcIntro());
+			pstmt.setInt(1, userVO.getuId());
+			pstmt.setInt(2, userVO.getmoodId());
+			pstmt.setString(3, userVO.getuNickname());
+			pstmt.setString(4, userVO.getuName());
+			pstmt.setString(5, userVO.getuMail());
+			pstmt.setString(6, userVO.getuPassword());
+			pstmt.setString(7, userVO.getuPhone());
+			pstmt.setInt(8, userVO.getuVerified());
+			pstmt.setInt(9, userVO.getuCoach());
+			pstmt.setString(10, userVO.getuGender());
+			pstmt.setInt(11, userVO.getuAge());
+			pstmt.setBytes(12, userVO.getuHeadshot());
+			pstmt.setDate(13, userVO.getuBirth());
+			pstmt.setInt(14, userVO.getuStatus());
+			pstmt.setString(15, userVO.getcIntro());
 
 			pstmt.executeUpdate();
 
@@ -69,31 +69,31 @@ public class UserDAO implements UserDAO_interface {
 	}
 
 	@Override
-	public void update(UserVO userVo) {
+	public void update(UserVO userVO) {
 		// TODO Auto-generated method stub
 		Connection con = null;
 		PreparedStatement pstmt = null;
 
 		try {
 			Class.forName(driver);
-			con = DriverManager.getConnection(url, userid, password);
-			pstmt = con.prepareStatement("update user set mood_id = ? ,u_nickname = ? ,u_name = ? ,u_mail = ? ,u_password = ? ,u_phone = ? ,u_verified = ? ,u_coach = ? ,u_gender = ? ,u_age = ? ,u_headshot = ? ,u_birth = ? ,u_status = ? ,u_intro = ? where u_id = ?");
+			con = DriverManager.getConnection(url, userId, password);
+			pstmt = con.prepareStatement("update user set mood_id = ? ,u_nickname = ? ,u_name = ? ,u_mail = ? ,u_password = ? ,u_phone = ? ,u_verified = ? ,u_coach = ? ,u_gender = ? ,u_age = ? ,u_headshot = ? ,u_birth = ? ,u_status = ? ,c_intro = ? where u_id = ?");
 
-			pstmt.setInt(1, userVo.getmoodId());
-			pstmt.setString(2, userVo.getuNickname());
-			pstmt.setString(3, userVo.getuName());
-			pstmt.setString(4, userVo.getuMail());
-			pstmt.setString(5, userVo.getuPassword());
-			pstmt.setString(6, userVo.getuPhone());
-			pstmt.setInt(7, userVo.getuVerified());
-			pstmt.setInt(8, userVo.getuCoach());
-			pstmt.setString(9, userVo.getuGender());
-			pstmt.setInt(10, userVo.getuAge());
-			pstmt.setBytes(11, userVo.getuHeadshot());
-			pstmt.setDate(12, userVo.getuBirth());
-			pstmt.setInt(13, userVo.getuStatus());
-			pstmt.setString(14, userVo.getcIntro());
-			pstmt.setInt(15, userVo.getuId());
+			pstmt.setInt(1, userVO.getmoodId());
+			pstmt.setString(2, userVO.getuNickname());
+			pstmt.setString(3, userVO.getuName());
+			pstmt.setString(4, userVO.getuMail());
+			pstmt.setString(5, userVO.getuPassword());
+			pstmt.setString(6, userVO.getuPhone());
+			pstmt.setInt(7, userVO.getuVerified());
+			pstmt.setInt(8, userVO.getuCoach());
+			pstmt.setString(9, userVO.getuGender());
+			pstmt.setInt(10, userVO.getuAge());
+			pstmt.setBytes(11, userVO.getuHeadshot());
+			pstmt.setDate(12, userVO.getuBirth());
+			pstmt.setInt(13, userVO.getuStatus());
+			pstmt.setString(14, userVO.getcIntro());
+			pstmt.setInt(15, userVO.getuId());
 
 			pstmt.executeUpdate();
 
@@ -125,7 +125,7 @@ public class UserDAO implements UserDAO_interface {
 	public List<UserVO> getAll() {
 		// TODO Auto-generated method stub
 		List<UserVO> list = new ArrayList<>();
-		UserVO userVo = null;
+		UserVO userVO = null;
 
 		Connection con = null;
 		PreparedStatement pstmt = null;
@@ -133,28 +133,28 @@ public class UserDAO implements UserDAO_interface {
 
 		try {
 			Class.forName(driver);
-			con = DriverManager.getConnection(url, userid, password);
-			pstmt = con.prepareStatement("select u_id,mood_id,u_nickname,u_name,u_mail,u_password,u_phone,u_verified,u_coach,u_gender,u_age,u_headshot,u_birth,u_status,u_intro from user order by u_id");
+			con = DriverManager.getConnection(url, userId, password);
+			pstmt = con.prepareStatement("select u_id,mood_id,u_nickname,u_name,u_mail,u_password,u_phone,u_verified,u_coach,u_gender,u_age,u_headshot,u_birth,u_status,c_intro from user order by u_id");
 			rs = pstmt.executeQuery();
 
 			while(rs.next()) {
-				userVo = new UserVO();
-				userVo.setuId(rs.getInt("u_id"));
-				userVo.setmoodId(rs.getInt("mood_id"));
-				userVo.setuNickname(rs.getString("u_nickname"));
-				userVo.setuName(rs.getString("u_name"));
-				userVo.setuMail(rs.getString("u_mail"));
-				userVo.setuPassword(rs.getString("u_password"));
-				userVo.setuPhone(rs.getString("u_phone"));
-				userVo.setuVerified(rs.getInt("u_verified"));
-				userVo.setuCoach(rs.getInt("u_coach"));
-				userVo.setuGender(rs.getString("u_gender"));
-				userVo.setuAge(rs.getInt("u_age"));
-				userVo.setuHeadshot(rs.getBytes("u_headshot"));
-				userVo.setuBirth(rs.getDate("u_birth"));
-				userVo.setuStatus(rs.getInt("u_status"));
-				userVo.setcIntro(rs.getString("u_intro"));
-				list.add(userVo);
+				userVO = new UserVO();
+				userVO.setuId(rs.getInt("u_id"));
+				userVO.setmoodId(rs.getInt("mood_id"));
+				userVO.setuNickname(rs.getString("u_nickname"));
+				userVO.setuName(rs.getString("u_name"));
+				userVO.setuMail(rs.getString("u_mail"));
+				userVO.setuPassword(rs.getString("u_password"));
+				userVO.setuPhone(rs.getString("u_phone"));
+				userVO.setuVerified(rs.getInt("u_verified"));
+				userVO.setuCoach(rs.getInt("u_coach"));
+				userVO.setuGender(rs.getString("u_gender"));
+				userVO.setuAge(rs.getInt("u_age"));
+				userVO.setuHeadshot(rs.getBytes("u_headshot"));
+				userVO.setuBirth(rs.getDate("u_birth"));
+				userVO.setuStatus(rs.getInt("u_status"));
+				userVO.setcIntro(rs.getString("c_intro"));
+				list.add(userVO);
 
 			}
 		} catch (ClassNotFoundException e) {
@@ -193,36 +193,36 @@ public class UserDAO implements UserDAO_interface {
 	@Override
 	public UserVO findByPrimaryKey(Integer uId) {
 		// TODO Auto-generated method stub
-		UserVO userVo = null;
+		UserVO userVO = null;
 		Connection con = null;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
 
 		try {
 			Class.forName(driver);
-			con=DriverManager.getConnection(url, userid, password);
-			pstmt=con.prepareStatement("select u_id,mood_id,u_nickname,u_name,u_mail,u_password,u_phone,u_verified,u_coach,u_gender,u_age,u_headshot,u_birth,u_status,u_intro from user where u_id=?");
+			con=DriverManager.getConnection(url, userId, password);
+			pstmt=con.prepareStatement("select u_id,mood_id,u_nickname,u_name,u_mail,u_password,u_phone,u_verified,u_coach,u_gender,u_age,u_headshot,u_birth,u_status,c_intro from user where u_id=?");
 			pstmt.setInt(1, uId);
 
 			rs = pstmt.executeQuery();
 
 			while(rs.next()) {
-				userVo = new UserVO();
-				userVo.setuId(rs.getInt("u_id"));
-				userVo.setmoodId(rs.getInt("mood_id"));
-				userVo.setuNickname(rs.getString("u_nickname"));
-				userVo.setuName(rs.getString("u_name"));
-				userVo.setuMail(rs.getString("u_mail"));
-				userVo.setuPassword(rs.getString("u_password"));
-				userVo.setuPhone(rs.getString("u_phone"));
-				userVo.setuVerified(rs.getInt("u_verified"));
-				userVo.setuCoach(rs.getInt("u_coach"));
-				userVo.setuGender(rs.getString("u_gender"));
-				userVo.setuAge(rs.getInt("u_age"));
-				userVo.setuHeadshot(rs.getBytes("u_headshot"));
-				userVo.setuBirth(rs.getDate("u_birth"));
-				userVo.setuStatus(rs.getInt("u_status"));
-				userVo.setcIntro(rs.getString("u_intro"));
+				userVO = new UserVO();
+				userVO.setuId(rs.getInt("u_id"));
+				userVO.setmoodId(rs.getInt("mood_id"));
+				userVO.setuNickname(rs.getString("u_nickname"));
+				userVO.setuName(rs.getString("u_name"));
+				userVO.setuMail(rs.getString("u_mail"));
+				userVO.setuPassword(rs.getString("u_password"));
+				userVO.setuPhone(rs.getString("u_phone"));
+				userVO.setuVerified(rs.getInt("u_verified"));
+				userVO.setuCoach(rs.getInt("u_coach"));
+				userVO.setuGender(rs.getString("u_gender"));
+				userVO.setuAge(rs.getInt("u_age"));
+				userVO.setuHeadshot(rs.getBytes("u_headshot"));
+				userVO.setuBirth(rs.getDate("u_birth"));
+				userVO.setuStatus(rs.getInt("u_status"));
+				userVO.setcIntro(rs.getString("c_intro"));
 			}
 
 		} catch (ClassNotFoundException e) {
@@ -255,7 +255,7 @@ public class UserDAO implements UserDAO_interface {
 			}
 		}
 
-		return userVo;
+		return userVO;
 	}
 
 	@Override
@@ -267,7 +267,7 @@ public class UserDAO implements UserDAO_interface {
 
 		try {
 			Class.forName(driver);
-			con = DriverManager.getConnection(url, userid, password);
+			con = DriverManager.getConnection(url, userId, password);
 			pstmt = con.prepareStatement("delete from user where u_id = ?");
 
 			pstmt.setInt(1, uId);

@@ -4,7 +4,6 @@ import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.sql.Date;
-import java.util.Base64;
 import java.util.LinkedHashMap;
 import java.util.LinkedList;
 import java.util.List;
@@ -19,6 +18,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import javax.servlet.http.Part;
 
+import com.user.model.UserHibernate;
 import com.user.model.UserDAO;
 import com.user.model.UserService;
 import com.user.model.UserVO;
@@ -61,7 +61,7 @@ public class UserServlet extends HttpServlet {
 			return;
 		}
 
-		if ("getOne_For_Display".equals(action)) { // 來自select_page.jsp的請求
+		if ("getOneForDisplay".equals(action)) { // 來自select_page.jsp的請求
 
 			List<String> errorMsgs = new LinkedList<>();
 			// Store this set in the request scope, in case we need to
@@ -70,7 +70,6 @@ public class UserServlet extends HttpServlet {
 
 			/*************************** 1.接收請求參數 - 輸入格式的錯誤處理 **********************/
 			String str = req.getParameter("uId");
-			System.out.println(str);
 			if (str == null || (str.trim()).length() == 0) {
 				errorMsgs.add("請輸入員工編號");
 			}
@@ -89,14 +88,12 @@ public class UserServlet extends HttpServlet {
 				failureView.forward(req, res);
 				return;// 程式中斷
 			}
-
 			/*************************** 2.開始查詢資料 *****************************************/
-			UserDAO dao = new UserDAO();
-			UserVO uservo = dao.findByPrimaryKey(uId);
-			if (uservo == null) {
+			UserService uSvc = new UserService();
+			UserVO userVO = uSvc.getOneUser(uId);
+			if (userVO == null) {
 				errorMsgs.add("查無資料");
 			}
-
 			// Send the use back to the form, if there were errors
 			if (!errorMsgs.isEmpty()) {
 				RequestDispatcher failureView = req.getRequestDispatcher("/user/select_page.jsp");
@@ -105,12 +102,10 @@ public class UserServlet extends HttpServlet {
 			}
 
 			/*************************** 3.查詢完成,準備轉交(Send the Success view) *************/
-			req.setAttribute("userVo", uservo); // 資料庫取出的empVO物件,存入req
+			req.setAttribute("userVO", userVO); // 資料庫取出的empVO物件,存入req
 			String url = "/user/listOneUser.jsp";
 			RequestDispatcher successView = req.getRequestDispatcher(url); // 成功轉交 listOneEmp.jsp
 			successView.forward(req, res);
-			UserVO userVo = new UserVO();
-			userVo.setuId(uId);
 
 		}
 		if ("insert".equals(action)) {
@@ -131,9 +126,6 @@ public class UserServlet extends HttpServlet {
 			} catch (NumberFormatException e) {
 				errorMsgs.add("心情狀態請填數字");
 			}
-//			if (moodId == null) {
-//				errorMsgs.add("心情狀態請勿空白");
-//			}
 			String uNickname;
 			uNickname = req.getParameter("uNickname");
 			String uNicknameReg = "^[(\u4e00-\u9fa5)(a-zA-Z0-9_)]{2,10}$";
@@ -142,11 +134,6 @@ public class UserServlet extends HttpServlet {
 			} else if (!uNickname.trim().matches(uNicknameReg)) {
 				errorMsgs.add("暱稱: 只能是中、英文字母、數字和_ , 且長度必需在2到10之間");
 			}
-//				try {
-//					hiredate = java.sql.Date.valueOf(req.getParameter("hiredate").trim());
-//				} catch (IllegalArgumentException e) {
-//					errorMsgs.put("hiredate","請輸入日期");
-//				}
 
 			String uName;
 			uName = req.getParameter("uName");
@@ -158,21 +145,26 @@ public class UserServlet extends HttpServlet {
 			}
 
 			String uMail;
+			String uMailRegex = "^[a-zA-Z0-9_+&*-]+(?:\\.[a-zA-Z0-9_+&*-]+)*@(?:[a-zA-Z0-9-]+\\.)+[a-zA-Z]{2,}$";
 			uMail = req.getParameter("uMail");
-//			try {
-//			} catch (NumberFo	rmatException e) {
-//				errorMsgs.put("uMail", "電子信箱請勿空白");
-//			}
-
+			if(!uMail.trim().matches(uMailRegex)) {
+				errorMsgs.add("請輸入有效的電子信箱地址");
+			}
+			
 			String uPassword;
 			uPassword = req.getParameter("uPassword");
-//			try {
-//			} catch (NumberFormatException e) {
-//				errorMsgs.put("uPassword", "密碼請勿空白");
-//			}
-
+			String uPasswordRegex = "^(?=.*[A-Za-z])(?=.*\\d).{6,}$";
+			if(!uPassword.matches(uPasswordRegex)) {
+				errorMsgs.add("密碼至少六位數且至少包含一個英文字母");
+			}
+			
+			
 			String uPhone;
 			uPhone = req.getParameter("uPhone");
+			String uPhoneRegex = "^09\\d{8}$" ;
+			if(!uPhone.matches(uPhoneRegex)) {
+				errorMsgs.add("請輸入有效的電話號碼");
+			}
 //			try {
 //			} catch (NumberFormatException e) {
 //				errorMsgs.put("uPhone", "聯絡電話請勿空白");
@@ -264,7 +256,6 @@ public class UserServlet extends HttpServlet {
 				failureView.forward(req, res);
 				return;
 			}
-			System.out.println("OKKK");
 			/*************************** 2.開始新增資料 ***************************************/
 			UserService uSvc = new UserService();
 			uSvc.addUser(uId, moodId, uNickname, uName, uMail, uPassword, uPhone, uVerified, uCoach, uGender, uAge,
@@ -275,7 +266,7 @@ public class UserServlet extends HttpServlet {
 			RequestDispatcher successView = req.getRequestDispatcher(url); // 新增成功後轉交listAllEmp.jsp
 			successView.forward(req, res);
 		}
-		if ("getOne_For_Update".equals(action)) { // 來自listAllEmp.jsp的請求
+		if ("getOneForUpdate".equals(action)) { // 來自listAllEmp.jsp的請求
 
 			Map<String, String> errorMsgs = new LinkedHashMap<>();
 			req.setAttribute("errorMsgs", errorMsgs);
@@ -285,21 +276,20 @@ public class UserServlet extends HttpServlet {
 
 			/*************************** 2.開始查詢資料 ****************************************/
 			UserService uSvc = new UserService();
-			UserVO userVo = uSvc.getOneUser(uId);
+			UserVO userVO = uSvc.getOneUser(uId);
 
 			/*************************** 3.查詢完成,準備轉交(Send the Success view) ************/
-			String param = "?uId=" + userVo.getuId() + "&moodId=" + userVo.getmoodId() + "&uNickname="
-					+ userVo.getuNickname() + "&uName=" + userVo.getuName() + "&uMail=" + userVo.getuMail()
-					+ "&uPassword=" + userVo.getuPassword() + "&uPhone=" + userVo.getuPhone() + "&uVerified="
-					+ userVo.getuVerified() + "&uCoach=" + userVo.getuCoach() + "&uGender=" + userVo.getuGender()
-					+ "&uAge=" + userVo.getuAge() + "&uHeadshot=" + userVo.getuHeadshot() + "&uBirth="
-					+ userVo.getuBirth() + "&uStatus=" + userVo.getuStatus() + "&cIntro=" + userVo.getcIntro();
+			String param = "?uId=" + userVO.getuId() + "&moodId=" + userVO.getmoodId() + "&uNickname="
+					+ userVO.getuNickname() + "&uName=" + userVO.getuName() + "&uMail=" + userVO.getuMail()
+					+ "&uPassword=" + userVO.getuPassword() + "&uPhone=" + userVO.getuPhone() + "&uVerified="
+					+ userVO.getuVerified() + "&uCoach=" + userVO.getuCoach() + "&uGender=" + userVO.getuGender()
+					+ "&uAge=" + userVO.getuAge() + "&uHeadshot=" + userVO.getuHeadshot() + "&uBirth="
+					+ userVO.getuBirth() + "&uStatus=" + userVO.getuStatus() + "&cIntro=" + userVO.getcIntro();
 
 			
 			String url = "/user/update_user.jsp" + param;
 			RequestDispatcher successView = req.getRequestDispatcher(url);// 成功轉交 update_emp_input.jsp
 			successView.forward(req, res);
-			System.out.println(req);
 		}
 
 		if ("update".equals(action)) {
@@ -343,6 +333,7 @@ public class UserServlet extends HttpServlet {
 
 			String uName;
 			uName = req.getParameter("uName");
+			System.out.println(uName);
 //			try {
 //			} catch (NumberFormatException e) {
 //				errorMsgs.put("uName", "名字請勿空白");
@@ -408,39 +399,6 @@ public class UserServlet extends HttpServlet {
 			}
 			    inputStream.close();
 			
-			
-//			byte[] uHeadshot = null;
-//
-//			Part uHeadshotPart = req.getPart("uHeadshot");
-//			InputStream inputStream = uHeadshotPart.getInputStream();
-//			ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
-//			byte[] buffer = new byte[1024];
-//			int length;
-//			while ((length = inputStream.read(buffer)) != -1) {
-//				outputStream.write(buffer, 0, length);
-//			}
-//			uHeadshot = outputStream.toByteArray();
-//
-//			inputStream.close();
-//			outputStream.close();
-//			InputStream inputStream = uHeadshotPart.getInputStream();
-//
-//			ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
-//			byte[] buffer = new byte[1024];
-//			int length;
-//			while ((length = inputStream.read(buffer)) != -1) {
-//			    outputStream.write(buffer, 0, length);
-//			}
-//			uHeadshot = outputStream.toByteArray();
-//
-//			inputStream.close();
-//			outputStream.close();
-//				uHeadshot = req.getPart("uHeadshot");
-
-//			catch (NumberFormatException e) {
-//				errorMsgs.put("uHeadshot", "請勿空白");
-//			}
-
 			Date uBirth = null;
 //			uBirth = Integer.valueOf(req.getParameter("uBirth"));
 //			try {
@@ -471,11 +429,11 @@ public class UserServlet extends HttpServlet {
 
 			/*************************** 2.開始修改資料 ***************************************/
 			UserService uSvc = new UserService();
-			UserVO userVo = uSvc.updateUser(uId, moodId, uNickname, uName, uMail, uPassword, uPhone, uVerified, uCoach,
+			UserVO userVO = uSvc.updateUser(uId, moodId, uNickname, uName, uMail, uPassword, uPhone, uVerified, uCoach,
 					uGender, uAge, uHeadshot, uBirth, uStatus, cIntro);
 
 			/*************************** 3.新增完成,準備轉交(Send the Success view) ***********/
-			req.setAttribute("userVo", userVo);
+			req.setAttribute("userVO", userVO);
 			String url = "/user/listOneUser.jsp";
 			RequestDispatcher successView = req.getRequestDispatcher(url); // 新增成功後轉交listAllEmp.jsp
 			successView.forward(req, res);
