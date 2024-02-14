@@ -34,6 +34,11 @@
     <link rel="stylesheet" href="../assets//css/joy/register.css">
     <link rel="stylesheet" href="../assets//css/mok/mok_opinion.css">
     <link rel="stylesheet" href="../assets//css/register-verify.css">
+    <style>
+        .hidden {
+            display: none;
+        }
+    </style>
 </head>
 
 <body class="rbt-header-sticky">
@@ -268,34 +273,36 @@
                 <div class="article-inner-wrapper">
                     <h1>請輸入驗證碼</h1>
                     <div>
+                        <div class="verificationCodeBox article-inner-wrapper-number-input">
+                            <input type="text" id="verificationCode1" maxlength="1">
+                            <input type="text" id="verificationCode2" maxlength="1">
+                            <input type="text" id="verificationCode3" maxlength="1">
+                            <input type="text" id="verificationCode4" maxlength="1">
+                            <input type="text" id="verificationCode5" maxlength="1">
+                            <input type="text" id="verificationCode6" maxlength="1">
+                        </div>
+                        <!-- 新增核對驗證碼按鈕 -->
+                        <p></p>
+                        <button type="button" id="checkVerificationCode">核對驗證碼</button>
+                        <h4></h4>
 
-                        <!-- 新增寄送驗證碼按鈕 -->
-                        <button type="button" id="sendVerificationCode">寄送驗證碼</button>
+
                     </div>
-                    <div class="article-inner-wrapper-number-input">
-                        <input type="text" id="verificationCode1" maxlength="1">
-                        <input type="text" id="verificationCode2" maxlength="1">
-                        <input type="text" id="verificationCode3" maxlength="1">
-                        <input type="text" id="verificationCode4" maxlength="1">
-                        <input type="text" id="verificationCode5" maxlength="1">
-                        <input type="text" id="verificationCode6" maxlength="1">
-                    </div>
+
+
                     <div class="article-inner-wrapper-verify-mistake">
-                        <p class="hint none">驗證碼錯誤</p>
+                        <p>重新寄送驗證碼（暫時沒做）</p>
                         <div class="resend">
-                            <p>需要重新寄送驗證碼</p>
+
                             <!-- 更新寄送鏈接為按鈕動作 -->
                             <button type="button" id="resendVerificationCode">寄送</button>
                         </div>
                     </div>
-                    <!-- 新增核對驗證碼按鈕 -->
-                    <button type="button" id="checkVerificationCode">核對驗證碼</button>
+
                 </div>
             </article>
         </form>
     </div>
-
-
 
     <div class="rbt-elements-area bg-color-white rbt-section-gap">
         <div class="container">
@@ -303,76 +310,82 @@
                 <div class="col-lg-6">
                     <div class="rbt-contact-form contact-form-style-1 max-width-auto">
                         <h3 class="title">註冊</h3>
-
-                        <form class="max-width-auto" method="post" action="/THA105G2/user_controller">
+                        <form class="registerForm max-width-auto" method="post" action="/THA105G2/user_controller">
                             <input type="hidden" name="requestType" value="registerForm">
+
                             <div class="form-group">
-                                <input name="u_name" type="text" maxlength="45" required>
-                                <label>中英文本名</label>
+                                <label for="u_name">請輸入中英文姓名</label>
+                                <input id="u_name" name="u_name" type="text">
+                                <span class="focus-border"></span>
                             </div>
+
+                            <div class="register_name_gender">
+                                <!-- 性別選單 -->
+                                <div class="rbt-modern-select bg-transparent height-45">
+                                    <label for="u_gender">請選擇性別</label>
+                                    <select id="u_gender" name="u_gender" class="w-100" required>
+                                        <option value="" disabled selected>性別</option>
+                                        <option value="0">男</option>
+                                        <option value="1">女</option>
+                                        <option value="2">其他</option>
+                                    </select>
+                                </div>
+                            </div>
+
                             <div class="form-group">
-                                <input name="u_nickname" type="text" maxlength="12" required>
-                                <label>站內暱稱(12字內的英文與數字組合)</label>
+                                <label for="u_nickname">站內暱稱(12字內的英文與數字組合)</label>
+                                <input id="u_nickname" name="u_nickname" type="text" maxlength="12" required>
                             </div>
+
+                            <div class="form-group">
+                                <label for="u_phone">手機號碼</label>
+                                <input id="u_phone" name="u_phone" type="tel" maxlength="10" required>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="u_mail">電子信箱</label>
+                                <input id="u_mail" name="u_mail" type="email" maxlength="50" required>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="u_password">密碼(必須包含英文字母和數字且長度6~12字)</label>
+                                <input id="u_password" name="u_password" type="password" required>
+                                <span class="focus-border"></span>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="u_conpassword">確認密碼</label>
+                                <input id="u_conpassword" name="u_conpassword" type="password" required>
+                                <span class="focus-border"></span>
+                            </div>
+
                             <div class="form-group focused">
-                                <span>出生日期</span>
-                                <input name="u_birth" type="date" id="remove_blur" required>
-                            </div>
-                            <div class="form-group">
-                                <input name="u_phone" type="tel" maxlength="10" required>
-                                <label>手機號碼</label>
-                            </div>
-                            <div class="form-group">
-                                <input name="u_mail" type="email" maxlength="50" required>
-                                <label>電子信箱</label>
-                            </div>
-                            <div class="form-group">
-                                <input name="u_password" type="password" required>
-                                <label>密碼(必須包含英文字母和數字且長度6~12字)</label>
+                                <label for="u_birth">生日</label>
+                                <input id="u_birth" name="u_birth" type="date">
                                 <span class="focus-border"></span>
                             </div>
-                            <div class="form-group">
-                                <input name="u_conpassword" type="password" required>
-                                <label>確認密碼</label>
-                                <span class="focus-border"></span>
-                            </div>
-                            <div class="rbt-modern-select bg-transparent height-45">
-                                <select name="u_gender" required>
-                                    <option value="" disabled selected>性別</option>
-                                    <option value="0">男</option>
-                                    <option value="1">女</option>
-                                    <option value="2">其他</option>
-                                </select>
-                            </div>
-                            <br>
 
                             <div class="form-submit-group">
-                                <!-- 將下一步按鈕的type設置為button，防止表單的自動提交 -->
-
                                 <button type="button" id="nextStepButton"
                                     class="rbt-btn btn-md btn-gradient hover-icon-reverse w-100 submmit-verify">
-
                                     <span class="icon-reverse-wrapper">
                                         <span class="btn-text">下一步 寄送驗證信</span>
                                         <span class="btn-icon"><i class="feather-arrow-right"></i></span>
                                         <span class="btn-icon"><i class="feather-arrow-right"></i></span>
                                     </span>
                                 </button>
+
                             </div>
                         </form>
-
-
-
-
-
-
-
                     </div>
                 </div>
-
             </div>
         </div>
     </div>
+
+
+
+
 
 
 
@@ -438,146 +451,122 @@
     <!-- Eugen -->
     <script>
 
-        // 通知後端生成驗證碼
-
-        document.addEventListener("DOMContentLoaded", function () {
-            document.getElementById("sendVerificationCode").addEventListener("click", function () {
-                var email = extractUMail();
-                var xhr = new XMLHttpRequest();
-                xhr.open("POST", "/THA105G2/user_controller", true);
-                xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
-                xhr.onreadystatechange = function () {
-                    if (this.readyState === XMLHttpRequest.DONE && this.status === 200) {
-                        alert("驗證碼已寄送");
-                    }
-                };
-                xhr.send("requestType=processVerificationEmail&uMail=" + encodeURIComponent(email));
-            });
-        });
-
-
-
-        // 通知後端核對生成的驗證碼和會員輸入的驗證碼
-
-
-        document.getElementById('checkVerificationCode').addEventListener('click', function () {
-            // 使用先前的驗證碼變數
-            var xhr = new XMLHttpRequest();
-            xhr.open('POST', '/THA105G2/user_controller', true);
-            xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
-            xhr.onreadystatechange = function () {
-                if (xhr.readyState == 4 && xhr.status == 200) {
-                    var response = JSON.parse(xhr.responseText);
-                    if (response.result === 1) {
-                        // alert("認證碼正確"); 
-                        sendRegistrationForm();
-
-                    } else if (response.result === 0) {
-                        alert("認證碼錯誤，請重新輸入！");
-
-                        // 清空輸入框
-                        for (var i = 1; i <= 6; i++) {
-                            document.getElementById('verificationCode' + i).value = '';
-                        }
-                    }
-                }
-            };
-            xhr.send('requestType=processVerificationCheck&verificationCode=' + verificationCode);
-        });
-
-        function sendRegistrationForm() {
-            
-        }
-    </script>
-
-
-
-
-
-
-
-    <script>
-        var verificationCode = ''; // 儲存驗證碼的變數
-
-        document.addEventListener("DOMContentLoaded", function () {
-            var inputs = document.querySelectorAll('.article-inner-wrapper-number-input input[type="text"]');
-
-            // 為每個輸入框綁定事件
-            inputs.forEach(function (input, idx) {
-                input.addEventListener('keyup', function (e) {
-                    // 檢查是否為數字輸入並且不是刪除鍵或退格鍵的動作
-                    if ((e.key >= 0 && e.key <= 9) && this.value.length === 1) {
-                        // 移動焦點到下一個輸入框
-                        var nextInput = inputs[idx + 1];
-                        if (nextInput) {
-                            nextInput.focus();
-                        }
-                    }
-
-                    // 將驗證碼組合起來並存入 verificationCode 變數中
-                    verificationCode = '';
-                    inputs.forEach(function (input) {
-                        verificationCode += input.value;
-                    });
-                });
-
-                // 限制只能輸入數字
-                input.addEventListener('input', function () {
-                    this.value = this.value.replace(/[^0-9]/g, '');
-                });
-
-                // 防止超過一個字符
-                input.addEventListener('input', function () {
-                    if (this.value.length > 1) {
-                        this.value = this.value.slice(0, 1);
-                    }
-                });
-            });
-        });
-    </script>
-
-
-    <script>
-        // 將彈窗隱藏
-        document.getElementById('lightbox-verify').style.display = 'none';
-
-        // 點擊後暫存註冊資料表並顯示彈窗
+        // 處理註冊表單在按下"寄送驗證碼"後會送往後端儲存在session並顯示彈窗
         document.getElementById('nextStepButton').addEventListener('click', function () {
-            var form = document.querySelector("form[action='/THA105G2/user_controller']");
-            var allFieldsFilled = Array.from(form.elements).every(element => {
-                return element.type !== 'button' && element.value !== '';
-            });
+            var formElement = document.querySelector('.registerForm');
+            var formData = new FormData(formElement);
+            var urlEncodedData = "";
+            var urlEncodedDataPairs = [];
 
+            // 將FormData轉換為URL編碼字符串
+            formData.append('requestType', 'registerForm');
+            for (var pair of formData.entries()) {
+                urlEncodedDataPairs.push(encodeURIComponent(pair[0]) + '=' + encodeURIComponent(pair[1]));
+            }
+            urlEncodedData = urlEncodedDataPairs.join('&').replace(/%20/g, '+');
 
-
-            // 顯示彈窗
-            document.getElementById('lightbox-verify').style.display = 'block';
-
-            // 將表單資料暫存
-            var formData = {};
-            Array.from(form.elements).forEach(element => {
-                if (element.name && element.value) {
-                    formData[element.name] = element.value;
-                }
-            });
-
-            // 儲存 formData 以供後續使用
-            document.getElementById('nextStepButton').setAttribute('data-formData', JSON.stringify(formData));
+            // 發送AJAX請求
+            fetch('/THA105G2/user_controller', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded'
+                },
+                body: urlEncodedData
+            })
+                .then(response => {
+                    if (response.ok) {
+                        return response.text(); // 或者 response.json() 如果回應是JSON
+                    }
+                    throw new Error('Network response was not ok.');
+                })
+                .then(data => {
+                    document.getElementById('lightbox-verify').classList.remove('hidden');
+                    console.log(data); // 處理服務器回應的數據
+                })
+                .catch(error => console.error('發生錯誤:', error));
         });
 
-        // uMail抽取法
-        function extractUMail() {
-            var formDataString = document.getElementById('nextStepButton').getAttribute('data-formData');
-            if (formDataString) {
-                var formData = JSON.parse(formDataString);
-                return formData.u_mail;
-            } else {
-                return null; // 或其他錯誤處理
-            }
-        }
+        // 如果要跳過註冊資料輸入直接顯示彈窗
+        // document.getElementById('lightbox-verify').classList.remove('hidden');
+
+        // 驗證碼組合
+        document.addEventListener('DOMContentLoaded', function () {
+            const inputs = document.querySelectorAll('.verificationCodeBox input');
+
+            inputs.forEach((input, index) => {
+                input.addEventListener('input', function () {
+                    // 只允許輸入數字，且最多一個字符
+                    input.value = input.value.replace(/[^0-9]/g, '').substr(0, 1);
+
+                    // 如果當前輸入框有值，且不是最後一個輸入框，則自動跳轉到下一個輸入框
+                    if (input.value.length === 1 && index < inputs.length - 1) {
+                        setTimeout(() => inputs[index + 1].focus(), 0); // 在下一個事件循環中執行
+                    }
+
+                    // 組合驗證碼
+                    let verificationCode = Array.from(inputs).map(i => i.value).join('');
+                    // 如果需要在其他地方使用verificationCode，可以在這裡操作
+                    console.log(verificationCode); // 示範：在控制台輸出verificationCode
+                });
+
+                // 添加退格鍵的處理，以便用戶更正輸入
+                input.addEventListener('keydown', function (e) {
+                    if (e.key === "Backspace" && input.value === '' && index > 0) {
+                        // 當輸入框為空，且按下退格鍵時，跳轉到前一個輸入框
+                        setTimeout(() => inputs[index - 1].focus(), 0); // 在下一個事件循環中執行
+                    }
+                });
+            });
+        });
+
+        // 比對驗證碼
+        document.addEventListener('DOMContentLoaded', function () {
+            document.getElementById('checkVerificationCode').addEventListener('click', function () {
+                // 組合驗證碼
+                const inputs = document.querySelectorAll('.verificationCodeBox input');
+                let verificationCode = Array.from(inputs).map(i => i.value).join('');
+
+                // 使用POST方法發送驗證碼到後端
+                fetch('/THA105G2/user_controller', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/x-www-form-urlencoded',
+                    },
+                    body: `requestType=verificationMail&verificationCode=${verificationCode}`
+                })
+                    .then(response => response.text())
+                    .then(data => {
+                        if (data === '0') {
+                            alert('註冊成功');
+                        } else if (data === '1') {
+                            alert('驗證碼錯誤');
+                            // 清空驗證碼表格
+                            inputs.forEach(input => input.value = '');
+                        }
+                    })
+                    .catch(error => console.error('Error:', error));
+            });
+        });
+
+
+
+
+
+
+
+
+
+
+
+
 
 
     </script>
+
+
+
+
+
 
 
 
