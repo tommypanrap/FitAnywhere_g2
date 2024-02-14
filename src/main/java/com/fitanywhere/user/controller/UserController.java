@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 
@@ -25,13 +26,19 @@ public class UserController extends HttpServlet {
 		// 使用 request.getParameter 來識別請求類型
 		String requestType = request.getParameter("requestType");
 		if ("registerForm".equals(requestType)) {
-			handleRegisterForm(request, response);
+			processRegisterForm(request, response);
 		} else if ("registerCheck".equals(requestType)) {
-			handleRegisterCheck(request, response);
-		}
+			processRegisterCheck(request, response);
+		}else if ("processVerificationEmail".equals(requestType)) {
+	        // 調用處理發送驗證郵件的方法
+	        processVerificationEmail(request, response);
+	    } else if ("processVerificationCheck".equals(requestType)) {
+	        // 調用處理驗證碼核對的方法
+	        processVerificationCheck(request, response);
+	    }
 	}
 
-	private void handleRegisterForm(HttpServletRequest request, HttpServletResponse response) throws IOException {
+	protected void processRegisterForm(HttpServletRequest request, HttpServletResponse response) throws IOException {
 		String uNickname = request.getParameter("u_nickname");
 		String uName = request.getParameter("u_name");
 		String uMail = request.getParameter("u_mail");
@@ -59,7 +66,7 @@ public class UserController extends HttpServlet {
 		}
 	}
 
-	private void handleRegisterCheck(HttpServletRequest request, HttpServletResponse response) throws IOException {
+	protected void processRegisterCheck(HttpServletRequest request, HttpServletResponse response) throws IOException {
 		String fieldName = request.getParameter("fieldName");
 		String value = request.getParameter("value");
 
@@ -85,4 +92,45 @@ public class UserController extends HttpServlet {
 			response.getWriter().write("unique");
 		}
 	}
+	
+	protected void processVerificationEmail(HttpServletRequest request, HttpServletResponse response)
+	        throws ServletException, IOException {
+	    // 模擬生成驗證碼並發送郵件的過程
+	    String verificationCode = "123456";
+	    String email = request.getParameter("uMail");
+
+	    // 假設這裡是發送郵件的代碼，現在僅將驗證碼保存在 session 中
+	    request.getSession().setAttribute("verificationCode", verificationCode);
+
+	    // 返回一個成功的響應給前端
+	    response.setContentType("application/json");
+	    response.setCharacterEncoding("UTF-8");
+	    response.getWriter().write("{\"message\":\"驗證郵件發送成功\"}");
+	}
+
+	protected void processVerificationCheck(HttpServletRequest request, HttpServletResponse response)
+	        throws ServletException, IOException {
+	    // 從請求中獲取用戶輸入的驗證碼
+	    String userInputCode = request.getParameter("verificationCode");
+
+	    // 從session中獲取之前保存的驗證碼
+	    String savedCode = (String) request.getSession().getAttribute("verificationCode");
+
+	    // 比較用戶輸入的驗證碼和保存的驗證碼
+	    boolean isMatch = savedCode != null && savedCode.equals(userInputCode);
+
+	    // 返回核對結果給前端，使用數字代替原來的文字消息
+	    response.setContentType("application/json");
+	    response.setCharacterEncoding("UTF-8");
+	    if (isMatch) {
+	        response.getWriter().write("{\"result\":1}"); // 驗證碼正確
+	    } else {
+	        response.getWriter().write("{\"result\":0}"); // 驗證碼錯誤
+	    }
+	}
+
+
+
+
+	
 }
