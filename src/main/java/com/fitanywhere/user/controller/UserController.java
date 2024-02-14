@@ -14,6 +14,8 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.Enumeration;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -28,13 +30,33 @@ public class UserController extends HttpServlet {
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
+
+		// 設置請求和響應的字符編碼為UTF-8
+		request.setCharacterEncoding("UTF-8");
+		response.setCharacterEncoding("UTF-8");
+
 		String requestType = request.getParameter("requestType");
 
 		if ("registerForm".equals(requestType)) {
 			holdRegisterForm(request, response);
 		} else if ("verificationMail".equals(requestType)) {
 			checkVerificationCode(request, response);
+		} else if ("login".equals(requestType)) {
+			login(request, response);
 		}
+		
+//		下面這段純粹是登入後在console列印當下Session看有無添加成功
+//		HttpSession session = request.getSession(false); // 獲取當前Session，不創建新的
+//	    if (session != null) {
+//	        Enumeration<String> attributeNames = session.getAttributeNames();
+//	        while (attributeNames.hasMoreElements()) {
+//	            String attributeName = attributeNames.nextElement();
+//	            System.out.println(attributeName + ": " + session.getAttribute(attributeName));
+//	        }
+//	    } else {
+//	        System.out.println("No active session.");
+//	    }
+		
 	}
 
 //	將註冊表單的資訊暫存到Session中
@@ -78,6 +100,7 @@ public class UserController extends HttpServlet {
 			UserVO userVO = userService.triggerRegistrationProcess(session);
 			if (userVO != null) {
 				System.out.println("註冊成功");
+				session.invalidate();//註冊成功則刪除Session 因為裡面有註冊資料
 				out.print("0"); // 驗證碼正確且註冊成功
 			} else {
 				System.out.println("註冊異常");
@@ -87,4 +110,43 @@ public class UserController extends HttpServlet {
 			out.print("1"); // 驗證碼不正確
 		}
 	}
+	
+//	處理會員登入
+	protected void login(HttpServletRequest request, HttpServletResponse response)
+	        throws ServletException, IOException {
+	    String uMail = request.getParameter("u_email");
+	    String password = request.getParameter("u_password");
+
+	    UserVO user = userService.login(uMail, password);
+
+	    PrintWriter out = response.getWriter();
+	    response.setContentType("application/json");
+
+	    if (user != null) {
+	        // 登錄成功，更新Session
+	        HttpSession session = request.getSession();
+	        session.invalidate(); // 使舊Session失效
+	        
+	        HttpSession newSession = request.getSession(true); // 創建新的Session
+//	        寫入會用到的會員資訊
+	        newSession.setAttribute("uID", user.getuID());
+	        newSession.setAttribute("uNickname", user.getuNickname());
+	        newSession.setAttribute("uCoach", user.getuCoach());
+//	        Session管理用的資訊 
+//	        最後活動時間+Session時效=Session保存期限
+//	        登陸狀態就是單純讀這個就知道有沒有登入
+	        newSession.setAttribute("loginDate", new Date()); // 登錄日期
+	        newSession.setAttribute("lastActiveTime", new Date()); // 最後活動時間
+	        newSession.setAttribute("loginStatus", "logged_in"); // 登錄狀態
+	        newSession.setMaxInactiveInterval(30 * 60); // 設置Session時效
+	        
+//	        單純是因為登入完還沒有頁面跳轉
+	        out.print("{\"status\":\"success\", \"message\":\"Login successful.\"}");
+	    } else {
+	        out.print("{\"status\":\"error\", \"message\":\"Login failed.\"}");
+	    }
+	}
+
+
+	
 }

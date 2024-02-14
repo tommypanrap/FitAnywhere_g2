@@ -10,31 +10,31 @@ import org.hibernate.query.Query;
 
 public class UserDAOImpl implements UserDAO {
 
-//	使用者註冊方法
+//	會員註冊方法
 	@Override
 	public UserVO registerUser(UserVO user) {
 		Transaction transaction = null;
 		try (Session session = HibernateUtil.getSessionFactory().openSession()) {
-			// 開始事務
+			// 開始transaction
 			transaction = session.beginTransaction();
 
 			// 設置預設值
-			user.setuVerified(0); // 預設未驗證
-			user.setuCoach(0); // 預設不是教練
-			user.setuStatus(0); // 預設用戶狀態
+			user.setuVerified(1); // 預設已驗證 因為目前註冊時強制驗證 (0=未驗證)
+			user.setuCoach(0); // 預設不是教練 (1 = 教練)
+			user.setuStatus(0); // 預設會員啟動狀態 
 			user.setuRegisterdate(new Date()); // 設置註冊時間為當前時間
 
-			// 保存用戶信息
+			// 保存會員信息
 			session.save(user);
 
-			// 提交事務
+			// 提交transaction
 			transaction.commit();
 
-			System.out.println("註冊成功, 用戶 ID: " + user.getuId());
+			System.out.println("註冊成功, 會員 ID: " + user.getuID());
 			return user; // 返回包含生成的 u_id 的 user 對象
 		} catch (Exception e) {
 			if (transaction != null) {
-				transaction.rollback(); // 事務回滾
+				transaction.rollback(); 
 			}
 			System.out.println("註冊失敗");
 			e.printStackTrace();
@@ -43,7 +43,7 @@ public class UserDAOImpl implements UserDAO {
 	}
 
 //    ======================================================
-//    檢查使用者的註冊資料(不重複)
+//    檢查會員的註冊資料(不重複)
 	@Override
 	public boolean registerCheck(String uNickname, String uPhone, String uMail) {
 		try (Session session = HibernateUtil.getSessionFactory().openSession()) {
@@ -62,5 +62,22 @@ public class UserDAOImpl implements UserDAO {
 	}
 
 //    ======================================================
+//	以uMail查詢會員資料
+	@Override
+    public UserVO loginVerification(String uMail) {
+        UserVO user = null;
+        try (Session session = HibernateUtil.getSessionFactory().openSession()) {
+            String hql = "FROM UserVO WHERE uMail = :uMail";
+            Query<UserVO> query = session.createQuery(hql, UserVO.class);
+            query.setParameter("uMail", uMail);
+            user = query.uniqueResult();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return user;
+    }
+	
+//  ======================================================
+
 
 }

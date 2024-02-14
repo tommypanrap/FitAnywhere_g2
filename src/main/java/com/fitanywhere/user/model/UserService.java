@@ -23,32 +23,32 @@ public class UserService {
 //	    ===================================================
 
 //    傳遞註冊用的資料
-    public UserVO registerUser(String uNickname, String uName, String uMail, 
-                                String uPassword, String uPhone, Integer uGender, Date uBirth) {
-        UserVO userVO = new UserVO();
-        
-        // 設置 UserVO 屬性
-        userVO.setuNickname(uNickname);
-        userVO.setuName(uName);
-        userVO.setuMail(uMail);
-        
-        //呼叫EncryptionUtil對密碼明碼執行單向加密進入DB	(如不要加密則註解這段)        
-        String encryptedPassword = EncryptionUtil.encryptPassword(uPassword);
-        userVO.setuPassword(encryptedPassword);	    
-        
-//        不啟用加密密碼的明碼寫入DB(如要加密則註解這段)
-//        userVO.setuPassword(uPassword);	 
-        
-        userVO.setuPhone(uPhone);
-        userVO.setuVerified(0); // 預設值
-        userVO.setuCoach(0); // 預設值
-        userVO.setuGender(uGender);
-        userVO.setuBirth(uBirth);
-        userVO.setuStatus(0); // 預設值
-        userVO.setuRegisterdate(new Date()); // 當下伺服器時間
+	public UserVO registerUser(String uNickname, String uName, String uMail, String uPassword, String uPhone,
+			Integer uGender, Date uBirth) {
+		UserVO userVO = new UserVO();
 
-        // 調用 DAO 層進行數據持久化
-        return userDAO.registerUser(userVO);
+		// 設置 UserVO 屬性
+		userVO.setuNickname(uNickname);
+		userVO.setuName(uName);
+		userVO.setuMail(uMail);
+
+		// 呼叫EncryptionUtil對密碼明碼執行單向加密進入DB (如不要加密則註解這段)
+		String encryptedPassword = EncryptionUtil.encryptPassword(uPassword);
+		userVO.setuPassword(encryptedPassword);
+
+//        不啟用加密密碼的明碼寫入DB(如要加密則註解這段 如果改為不加密 則後續步驟都要修改)
+//        userVO.setuPassword(uPassword);	 
+
+		userVO.setuPhone(uPhone);
+		userVO.setuVerified(0); // 預設值
+		userVO.setuCoach(0); // 預設值
+		userVO.setuGender(uGender);
+		userVO.setuBirth(uBirth);
+		userVO.setuStatus(0); // 預設值
+		userVO.setuRegisterdate(new Date()); // 當下伺服器時間
+
+		// 調用 DAO 層進行數據持久化
+		return userDAO.registerUser(userVO);
 	}
 
 //	    ==========================================
@@ -109,8 +109,21 @@ public class UserService {
 		} catch (ParseException e) {
 			e.printStackTrace();
 			System.out.println("註冊流程異常!");
-			// 適當的錯誤處理，例如可以返回null或者拋出一個自定義異常
+			// 錯誤處理
 			return null;
 		}
 	}
+
+//  ==========================================	
+	public UserVO login(String uMail, String inputPassword) {
+		UserVO user = userDAO.loginVerification(uMail);
+		if (user != null && EncryptionUtil.checkPassword(inputPassword, user.getuPassword())) {
+			return user; // 返回會員資料表示登錄成功
+		}
+		return null; // 登錄失敗
+	}
+
+//  ==========================================
+
+
 }
